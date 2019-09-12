@@ -9,7 +9,7 @@ if((([System.Security.Principal.WindowsIdentity]::GetCurrent()).groups -match "S
     Remove-ItemProperty -Path $registryPath -Name $name
 }	
 
-
+https://gist.github.com/TarlogicSecurity/2f221924fef8c14a1d8e29f3cb5c5c4a
 
 
 
