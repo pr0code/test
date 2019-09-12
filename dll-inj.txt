@@ -17,3 +17,4 @@ ProcessInjection.exe /pid:123 /path:""C:\Users\User\Desktop\calc.dll"" /t:2
 
 
 https://github.com/3xpl01tc0d3r/ProcessInjection
+https://3xpl01tc0d3r.blogspot.com/2019/08/process-injection-part-i.html
